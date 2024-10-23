@@ -38,6 +38,6 @@ class DeepGreenCommandProvider
      */
     public function getCommands()
     {
-        return null;
+        return [new ImportCommand()];
     }
 }
