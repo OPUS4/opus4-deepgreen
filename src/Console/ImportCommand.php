@@ -37,6 +37,19 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ImportCommand extends Command
 {
+    protected function configure()
+    {
+        parent::configure();
+
+        $help = <<<EOT
+The deepgreen:import command is not implemented yet.
+EOT;
+
+        $this->setName('deepgreen:import')
+            ->setDescription('Imports documents from DeepGreen')
+            ->setHelp($help);
+    }
+
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         // TODO implement (actual importing should happen in different classes
