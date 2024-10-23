@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="opus4-deepgreen">
+
+    <property environment="env" />
+
+    <target name="clean">
+        <delete dir="${basedir}/build/logs" />
+        <delete dir="${basedir}/build/api" />
+        <delete dir="${basedir}/build/coverage" />
+        <delete dir="${basedir}/build/pdepend" />
+        <delete dir="${basedir}/build/code-browser" />
+        <delete includeEmptyDirs="true">
+            <fileset dir="${basedir}/build/workspace/cache" includes="**/*" />
+        </delete>
+        <delete includeEmptyDirs="true">
+            <fileset dir="${basedir}/build/workspace/tmp" includes="**/*" />
+        </delete>
+        <delete includeEmptyDirs="true">
+            <fileset dir="${basedir}/build/workspace" />
+        </delete>
+    </target>
+
+    <target name="prepare-workspace">
+        <mkdir dir="${basedir}/build/workspace/cache" />
+        <mkdir dir="${basedir}/build/workspace/tmp" />
+        <mkdir dir="${basedir}/build/workspace/log" />
+        <mkdir dir="${basedir}/build/workspace/files" />
+    </target>
+
+    <target name="lint">
+        <apply executable="php" dir="${basedir}" failonerror="on" logerror="on">
+            <arg line="-l"/>
+            <fileset dir="${basedir}" followsymlinks="false">
+                <include name="**/*.php"/>
+                <modified />
+                <exclude name="vendor/**"/>
+            </fileset>
+        </apply>
+    </target>
+
+</project>
+
