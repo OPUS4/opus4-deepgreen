@@ -31,6 +31,14 @@
  * @license     http://www.gnu.org/licenses/gpl.html General Public License
  */
 
+
+/**
+ * TODO uses development dependency (framework) - It should probably be a runtime
+ *      dependency, however that causes problem when Composer tries to resolve
+ *      dependencies during development - THIS NEEDS TO BE REVIEWED WHEN THIS APP
+ *      BECOMES A STANDALONE TOOL USED IN PRODUCTION AND NOT JUST TESTING. (This
+ *      might also change with Laminas.)
+ */
 require_once __DIR__ . '/../vendor/opus4-repo/framework/tests/Bootstrap.php';
 
 /**
