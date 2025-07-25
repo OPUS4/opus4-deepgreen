@@ -31,7 +31,9 @@
 
 namespace Opus\DeepGreen\Console;
 
-class DeepGreenCommandProvider
+use Opus\Common\Console\CommandProviderInterface;
+
+class DeepGreenCommandProvider implements CommandProviderInterface
 {
     /**
      * @return array|null
