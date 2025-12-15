@@ -40,6 +40,11 @@ class DeepGreenCommandProvider implements CommandProviderInterface
      */
     public function getCommands()
     {
-        return [new ImportCommand()];
+        return [
+            new ConfigCommand(),
+            new CheckCommand(),
+            new DownloadCommand(),
+            new ImportCommand(),
+        ];
     }
 }

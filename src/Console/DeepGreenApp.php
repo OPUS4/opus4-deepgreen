@@ -33,6 +33,8 @@ namespace Opus\DeepGreen\Console;
 
 use Symfony\Component\Console\Application;
 
+use function preg_replace;
+
 /**
  * Console application for running DeepGreen commands without OPUS 4
  * application.
@@ -46,10 +48,18 @@ class DeepGreenApp extends Application
     {
         parent::__construct('OPUS 4 DeepGreen Client'); // TODO add version number
 
-        $commandProvider = new DeepGreenCommandProvider();
-        $commands        = $commandProvider->getCommands();
+        $commands = [
+            new CheckCommand(),
+            new ConfigCommand(),
+            new DownloadCommand(),
+        ];
 
         foreach ($commands as $command) {
+            // Add alias for commands without 'sword:' namespace (needed in OPUS 4 Application).
+            // This is just for testing and using the commands outside of the Application.
+            $short = preg_replace('/.*:/', '', $command->getName());
+            $command->setAliases([$short]);
+
             $this->add($command);
         }
 
