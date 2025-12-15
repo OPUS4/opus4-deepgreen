@@ -31,15 +31,7 @@
  * @license     http://www.gnu.org/licenses/gpl.html General Public License
  */
 
-
-/**
- * TODO uses development dependency (framework) - It should probably be a runtime
- *      dependency, however that causes problem when Composer tries to resolve
- *      dependencies during development - THIS NEEDS TO BE REVIEWED WHEN THIS APP
- *      BECOMES A STANDALONE TOOL USED IN PRODUCTION AND NOT JUST TESTING. (This
- *      might also change with Laminas.)
- */
-require_once __DIR__ . '/../vendor/opus4-repo/framework/tests/Bootstrap.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 /**
  * OPUS 4 DeepGreen Client
@@ -49,15 +41,9 @@ require_once __DIR__ . '/../vendor/opus4-repo/framework/tests/Bootstrap.php';
  *
  * This allows running the commands implemented in "opus4-deepgreen" without the
  * OPUS 4 Application. This is useful for testing during development.
- *
- * TODO not all commands require the OPUS 4 database - The database code should
- *      only be loaded, when necessary. This might become easier with the changes
- *      forced by Laminas.
  */
 
 use Opus\DeepGreen\Console\DeepGreenApp;
 
 $app = new DeepGreenApp();
 $app->run();
-
-
