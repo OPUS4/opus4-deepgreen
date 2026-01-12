@@ -116,10 +116,10 @@ EOT;
     {
         $ask = $this->getQuestionHelper();
 
-        $question = new Question('Please enter repository ID: ');
+        $question = new Question('Please enter account ID: ');
         $question->setValidator(function ($answer) {
             if (empty($answer)) {
-                throw new Exception('The Repository ID is required.');
+                throw new Exception('The account ID is required.');
             }
 
             return $answer;
