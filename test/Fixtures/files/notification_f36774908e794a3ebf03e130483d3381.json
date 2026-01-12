@@ -1,0 +1,152 @@
+{
+  "id": "f36774908e794a3ebf03e130483d3381",
+  "created_date": "2025-12-15T06:38:13Z",
+  "analysis_date": "2025-12-15T06:43:37Z",
+  "issn_data": "2297-055X",
+  "content": {
+    "packaging_format": "https://datahub.deepgreen.org/FilesAndJATS"
+  },
+  "embargo": {
+    "duration": "0"
+  },
+  "metadata": {
+    "title": "Conventional hybrid coronary vs. robot-assisted minimally invasive direct revascularization: a meta-analysis and systematic review",
+    "journal": "Frontiers in Cardiovascular Medicine",
+    "volume": "12",
+    "publisher": "Frontiers Media S.A.",
+    "publication_date": "2025-12-01T00:00:00Z",
+    "date_accepted": "2025-10-27T00:00:00Z",
+    "date_submitted": "2025-06-19T00:00:00Z",
+    "license_ref": {
+      "title": "Open Access",
+      "type": "CC-BY",
+      "url": "https://creativecommons.org/licenses/by/4.0",
+      "version": "4.0"
+    },
+    "identifier": [
+      {
+        "type": "issn",
+        "id": "2297-055X"
+      },
+      {
+        "type": "doi",
+        "id": "10.3389/fcvm.2025.1650138"
+      }
+    ],
+    "author": [
+      {
+        "name": "Carla L. Schuering",
+        "firstname": "Carla L.",
+        "lastname": "Schuering",
+        "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany"
+      },
+      {
+        "name": "Vanessa I. T. Zwaans",
+        "firstname": "Vanessa I. T.",
+        "lastname": "Zwaans",
+        "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany"
+      },
+      {
+        "name": "Anna Huang",
+        "firstname": "Anna",
+        "lastname": "Huang",
+        "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany"
+      },
+      {
+        "name": "Melanie K\u00f6hler-Seuster",
+        "firstname": "Melanie",
+        "lastname": "K\u00f6hler-Seuster",
+        "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany"
+      },
+      {
+        "name": "Johanna K. R. von Mackensen",
+        "firstname": "Johanna K. R.",
+        "lastname": "von Mackensen",
+        "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany"
+      },
+      {
+        "name": "Jasper Iske",
+        "firstname": "Jasper",
+        "lastname": "Iske",
+        "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany"
+      },
+      {
+        "name": "Julia Stein",
+        "firstname": "Julia",
+        "lastname": "Stein",
+        "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany"
+      },
+      {
+        "name": "Julius Kaemmel",
+        "firstname": "Julius",
+        "lastname": "Kaemmel",
+        "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany; DZHK (German Center for Cardiovascular Research) , Berlin , Germany"
+      },
+      {
+        "name": "Roland Heck",
+        "firstname": "Roland",
+        "lastname": "Heck",
+        "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany"
+      },
+      {
+        "name": "Christoph T. Starck",
+        "firstname": "Christoph T.",
+        "lastname": "Starck",
+        "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany; DZHK (German Center for Cardiovascular Research) , Berlin , Germany"
+      },
+      {
+        "name": "J\u00f6rg Kempfert",
+        "firstname": "J\u00f6rg",
+        "lastname": "Kempfert",
+        "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany; DZHK (German Center for Cardiovascular Research) , Berlin , Germany"
+      },
+      {
+        "name": "Stephan Jacobs",
+        "firstname": "Stephan",
+        "lastname": "Jacobs",
+        "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany; DZHK (German Center for Cardiovascular Research) , Berlin , Germany"
+      },
+      {
+        "name": "Volkmar Falk",
+        "firstname": "Volkmar",
+        "lastname": "Falk",
+        "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany; DZHK (German Center for Cardiovascular Research) , Berlin , Germany; Department of Cardiothoracic Surgery, Charit\u00e9\u2212Universit\u00e4tsmedizin Berlin, Corporate Member of Freie Universit\u00e4t Berlin and Humboldt-Universit\u00e4t zu Berlin , Berlin , Germany; Department of Health Sciences and Technology, ETH Zurich , Zurich , Switzerland"
+      },
+      {
+        "name": "Leonhard Wert",
+        "firstname": "Leonhard",
+        "lastname": "Wert",
+        "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany"
+      }
+    ],
+    "subject": [
+      "Systematic Review",
+      "hybrid coronary revascularisation",
+      "MIDCAB",
+      "PCI\u2014percutaneous coronary intervention (PCI)",
+      "hybrid",
+      "HCR",
+      "hybrid MIDCAB"
+    ]
+  },
+  "links": [
+    {
+      "type": "package",
+      "format": "application/zip",
+      "url": "https://www.oa-deepgreen.de/api/v1/notification/f36774908e794a3ebf03e130483d3381/content",
+      "packaging": "https://datahub.deepgreen.org/FilesAndJATS"
+    },
+    {
+      "type": "package",
+      "format": "application/zip",
+      "url": "https://www.oa-deepgreen.de/api/v1/notification/f36774908e794a3ebf03e130483d3381/content/METSMODS.zip",
+      "packaging": "http://purl.org/net/sword/package/METSMODS"
+    },
+    {
+      "type": "package",
+      "format": "application/zip",
+      "url": "https://www.oa-deepgreen.de/api/v1/notification/f36774908e794a3ebf03e130483d3381/content/SimpleZip.zip",
+      "packaging": "http://purl.org/net/sword/package/SimpleZip"
+    }
+  ]
+}

@@ -47,6 +47,9 @@ use function strtotime;
 use const JSON_PRETTY_PRINT;
 use const JSON_UNESCAPED_SLASHES;
 
+/**
+ * TODO option for getting all notifications (multiple pages)
+ */
 class CheckCommand extends Command
 {
     const OPTION_OUTPUT = 'output';

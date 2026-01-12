@@ -33,6 +33,7 @@ namespace OpusTest\DeepGreen\Console;
 
 use Opus\DeepGreen\Console\DeepGreenCommandProvider;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Command\Command;
 
 class DeepGreenCommandProviderTest extends TestCase
 {
@@ -42,6 +43,10 @@ class DeepGreenCommandProviderTest extends TestCase
 
         $commands = $provider->getCommands();
 
-        $this->assertCount(4, $commands);
+        $this->assertIsArray($commands);
+
+        foreach ($commands as $command) {
+            $this->assertInstanceOf(Command::class, $command);
+        }
     }
 }

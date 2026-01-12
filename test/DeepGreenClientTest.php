@@ -33,6 +33,7 @@ namespace OpusTest\DeepGreen;
 
 use Opus\DeepGreen\DeepGreenClient;
 use PHPUnit\Framework\TestCase;
+use Zend_Config;
 
 class DeepGreenClientTest extends TestCase
 {
@@ -44,10 +45,73 @@ class DeepGreenClientTest extends TestCase
         parent::setUp();
 
         $this->client = new DeepGreenClient();
+        $this->client->setConfig(new Zend_Config([
+            'deepgreen' => [
+                'configFile'   => 'unknownConfigFile.ini', // do not load local configuration TODO better way?
+                'serviceUrl'   => 'https://test.oa-deepgreen.de/api/v1/',
+                'apiKey'       => 'testKey',
+                'repositoryId' => 'testRepositoryId',
+            ],
+        ]));
     }
 
     public function testGetConfigFilePath()
     {
+        $this->client->setConfig(null); // Use default configuration
         $this->assertEquals(APPLICATION_PATH . '/deepgreen.ini', $this->client->getConfigFilePath());
+    }
+
+    public function testGetDeepGreenConfig()
+    {
+        $config = $this->client->getDeepGreenConfig();
+
+        $this->assertNotNull($config);
+    }
+
+    public function testGetServiceUrl()
+    {
+        $this->assertEquals('https://test.oa-deepgreen.de/api/v1/', $this->client->getServiceUrl());
+    }
+
+    public function testSetServiceUrl()
+    {
+        $this->client->setServiceUrl('https://example.org/api/v1');
+        $this->assertEquals('https://example.org/api/v1/', $this->client->getServiceUrl());
+
+        $this->client->setServiceUrl(null);
+        $this->assertEquals('https://test.oa-deepgreen.de/api/v1/', $this->client->getServiceUrl());
+    }
+
+    public function testGetApiKey()
+    {
+        $this->assertEquals('testKey', $this->client->getApiKey());
+    }
+
+    public function testSetApiKey()
+    {
+        $this->client->setApiKey('mykey');
+        $this->assertEquals('mykey', $this->client->getApiKey());
+
+        $this->client->setApiKey(null);
+        $this->assertEquals('testKey', $this->client->getApiKey());
+    }
+
+    public function testGetRepositoryId()
+    {
+        $this->assertEquals('testRepositoryId', $this->client->getRepositoryId());
+    }
+
+    public function testSetRepositoryId()
+    {
+        $this->client->setRepositoryId('myRepositoryId');
+        $this->assertEquals('myRepositoryId', $this->client->getRepositoryId());
+
+        $this->client->setRepositoryId(null);
+        $this->assertEquals('testRepositoryId', $this->client->getRepositoryId());
+    }
+
+    public function testGetDefaultServiceUrl()
+    {
+        $this->assertEquals('https://test.oa-deepgreen.de/api/v1/', $this->client->getDefaultServiceUrl());
     }
 }

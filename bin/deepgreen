@@ -43,6 +43,9 @@ require_once __DIR__ . '/../vendor/autoload.php';
  * OPUS 4 Application. This is useful for testing during development.
  */
 
+// TODO better way of switching between default test and production service URLs?
+defined('APPLICATION_ENV') || define('APPLICATION_ENV', 'testing');
+
 use Opus\DeepGreen\Console\DeepGreenApp;
 
 $app = new DeepGreenApp();

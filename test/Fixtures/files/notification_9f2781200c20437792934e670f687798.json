@@ -1,0 +1,152 @@
+{
+  "id": "9f2781200c20437792934e670f687798",
+  "created_date": "2025-12-10T20:43:21Z",
+  "analysis_date": "2025-12-10T21:15:07Z",
+  "issn_data": "2073-4425",
+  "content": {
+    "packaging_format": "https://datahub.deepgreen.org/FilesAndJATS"
+  },
+  "embargo": {
+    "duration": "0"
+  },
+  "metadata": {
+    "title": "Genetic Assessment and Clinical Correlates in Severe Hypertriglyceridemia: A Systematic Review",
+    "journal": "Genes",
+    "volume": "16",
+    "issue": "11",
+    "publisher": "MDPI",
+    "publication_date": "2025-11-11T00:00:00Z",
+    "date_accepted": "2025-11-03T00:00:00Z",
+    "date_submitted": "2025-09-22T00:00:00Z",
+    "license_ref": {
+      "title": "Open Access",
+      "type": "CC BY",
+      "url": "https://creativecommons.org/licenses/by/4.0/deed.de",
+      "version": "4.0"
+    },
+    "identifier": [
+      {
+        "type": "issn",
+        "id": "2073-4425"
+      },
+      {
+        "type": "doi",
+        "id": "10.3390/genes16111377"
+      }
+    ],
+    "author": [
+      {
+        "name": "Carmine De Luca",
+        "firstname": "Carmine",
+        "lastname": "De Luca",
+        "affiliation": "Department of Clinical Medicine and Surgery, University of Naples Federico II, 80131 Naples, Italy; deluca.carmine.medicina@gmail.com (C.D.L.); paola.ciciola@unina.it (P.C.); guidoderrico1@gmail.com (G.D.); gabriella.iannuzzo@unina.it (G.I.); matteo.diminno@unina.it (M.D.M.)",
+        "identifier": [
+          {
+            "type": "orcid",
+            "id": "https://orcid.org/0009-0004-6875-9133"
+          }
+        ]
+      },
+      {
+        "name": "Paola Ciciola",
+        "firstname": "Paola",
+        "lastname": "Ciciola",
+        "affiliation": "Department of Clinical Medicine and Surgery, University of Naples Federico II, 80131 Naples, Italy; deluca.carmine.medicina@gmail.com (C.D.L.); paola.ciciola@unina.it (P.C.); guidoderrico1@gmail.com (G.D.); gabriella.iannuzzo@unina.it (G.I.); matteo.diminno@unina.it (M.D.M.)"
+      },
+      {
+        "name": "Guido D\u2019Errico",
+        "firstname": "Guido",
+        "lastname": "D\u2019Errico",
+        "affiliation": "Department of Clinical Medicine and Surgery, University of Naples Federico II, 80131 Naples, Italy; deluca.carmine.medicina@gmail.com (C.D.L.); paola.ciciola@unina.it (P.C.); guidoderrico1@gmail.com (G.D.); gabriella.iannuzzo@unina.it (G.I.); matteo.diminno@unina.it (M.D.M.)"
+      },
+      {
+        "name": "Maria Donata Di Taranto",
+        "firstname": "Maria Donata",
+        "lastname": "Di Taranto",
+        "affiliation": "Department of Molecular Medicine and Medical Biotechnologies, CEINGE Advanced Biotechnologies S.C. A R.L, University of Naples Federico II, Via S. Pansini 5, 80131 Naples, Italy; mariadonata.ditaranto@unina.it (M.D.D.T.); giuliana.fortunato@unina.it (G.F.)",
+        "identifier": [
+          {
+            "type": "orcid",
+            "id": "https://orcid.org/0000-0002-0618-7940"
+          }
+        ]
+      },
+      {
+        "name": "Giuliana Fortunato",
+        "firstname": "Giuliana",
+        "lastname": "Fortunato",
+        "affiliation": "Department of Molecular Medicine and Medical Biotechnologies, CEINGE Advanced Biotechnologies S.C. A R.L, University of Naples Federico II, Via S. Pansini 5, 80131 Naples, Italy; mariadonata.ditaranto@unina.it (M.D.D.T.); giuliana.fortunato@unina.it (G.F.)",
+        "identifier": [
+          {
+            "type": "orcid",
+            "id": "https://orcid.org/0000-0002-2209-383X"
+          }
+        ]
+      },
+      {
+        "name": "Carina Gross",
+        "firstname": "Carina",
+        "lastname": "Gross",
+        "affiliation": "Faculty of Medicine, Hannover Medical School (MHH), 30625 Hannover, Germany; carina.gross@stud.mh-hannover.de (C.G.); jonathan.garn@stud.mh-hannover.de (J.G.)"
+      },
+      {
+        "name": "Jonathan Garn",
+        "firstname": "Jonathan",
+        "lastname": "Garn",
+        "affiliation": "Faculty of Medicine, Hannover Medical School (MHH), 30625 Hannover, Germany; carina.gross@stud.mh-hannover.de (C.G.); jonathan.garn@stud.mh-hannover.de (J.G.)"
+      },
+      {
+        "name": "Gabriella Iannuzzo",
+        "firstname": "Gabriella",
+        "lastname": "Iannuzzo",
+        "affiliation": "Department of Clinical Medicine and Surgery, University of Naples Federico II, 80131 Naples, Italy; deluca.carmine.medicina@gmail.com (C.D.L.); paola.ciciola@unina.it (P.C.); guidoderrico1@gmail.com (G.D.); gabriella.iannuzzo@unina.it (G.I.); matteo.diminno@unina.it (M.D.M.)",
+        "identifier": [
+          {
+            "type": "orcid",
+            "id": "https://orcid.org/0000-0002-7392-5544"
+          }
+        ]
+      },
+      {
+        "name": "Matteo Di Minno",
+        "firstname": "Matteo",
+        "lastname": "Di Minno",
+        "affiliation": "Department of Clinical Medicine and Surgery, University of Naples Federico II, 80131 Naples, Italy; deluca.carmine.medicina@gmail.com (C.D.L.); paola.ciciola@unina.it (P.C.); guidoderrico1@gmail.com (G.D.); gabriella.iannuzzo@unina.it (G.I.); matteo.diminno@unina.it (M.D.M.)",
+        "identifier": [
+          {
+            "type": "orcid",
+            "id": "https://orcid.org/0000-0001-8059-3819"
+          }
+        ]
+      },
+      {
+        "name": "Ilenia Calcaterra",
+        "firstname": "Ilenia",
+        "lastname": "Calcaterra",
+        "affiliation": "Department of Clinical Medicine and Surgery, University of Naples Federico II, 80131 Naples, Italy; deluca.carmine.medicina@gmail.com (C.D.L.); paola.ciciola@unina.it (P.C.); guidoderrico1@gmail.com (G.D.); gabriella.iannuzzo@unina.it (G.I.); matteo.diminno@unina.it (M.D.M.)"
+      }
+    ],
+    "subject": [
+      "Systematic Review",
+      "familial chylomicronemia syndrome (FCS)",
+      "metabolic dysfunction-associated steatotic liver disease (MASLD)",
+      "polygenic hypertriglyceridemia",
+      "precision medicine",
+      "severe hypertriglyceridemia"
+    ]
+  },
+  "links": [
+    {
+      "type": "package",
+      "format": "application/zip",
+      "url": "https://www.oa-deepgreen.de/api/v1/notification/9f2781200c20437792934e670f687798/content",
+      "packaging": "https://datahub.deepgreen.org/FilesAndJATS"
+    },
+    {
+      "type": "package",
+      "format": "application/zip",
+      "url": "https://www.oa-deepgreen.de/api/v1/notification/9f2781200c20437792934e670f687798/content/SimpleZip.zip",
+      "packaging": "http://purl.org/net/sword/package/SimpleZip"
+    }
+  ]
+}

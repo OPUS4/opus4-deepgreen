@@ -1,0 +1,99 @@
+{
+  "id": "9c04a870275840c3a857fc382dff373f",
+  "created_date": "2025-12-15T06:46:51Z",
+  "analysis_date": "2025-12-15T06:47:07Z",
+  "issn_data": "2199-398X",
+  "content": {
+    "packaging_format": "https://datahub.deepgreen.org/FilesAndJATS"
+  },
+  "embargo": {
+    "duration": "0"
+  },
+  "metadata": {
+    "title": "Long-term pig manure application increases SOC through aggregate protection and Fe-C associations in a subtropical red soil (Udic Ferralsols)",
+    "journal": "SOIL",
+    "volume": "11",
+    "issue": "2",
+    "fpage": "1095",
+    "lpage": "1108",
+    "publisher": "Copernicus Publications",
+    "publication_date": "2025-12-15T00:00:00Z",
+    "date_accepted": "2025-11-15T00:00:00Z",
+    "date_submitted": "2025-05-22T00:00:00Z",
+    "license_ref": {},
+    "identifier": [
+      {
+        "type": "issn",
+        "id": "2199-398X"
+      },
+      {
+        "type": "doi",
+        "id": "10.5194/soil-11-1095-2025"
+      }
+    ],
+    "author": [
+      {
+        "name": "Hui Rong",
+        "firstname": "Hui",
+        "lastname": "Rong",
+        "affiliation": "Key Laboratory of Arable Land Conservation (North China), Ministry of Agriculture, College of Land Science and Technology, China Agricultural University, Beijing 100093, China"
+      },
+      {
+        "name": "Zhangliu Du",
+        "firstname": "Zhangliu",
+        "lastname": "Du",
+        "affiliation": "Beijing Key Laboratory of Biodiversity and Organic Farming, College of Resources and Environmental Sciences, China Agricultural University, Beijing 100193, China"
+      },
+      {
+        "name": "Weida Gao",
+        "firstname": "Weida",
+        "lastname": "Gao",
+        "affiliation": "Key Laboratory of Arable Land Conservation (North China), Ministry of Agriculture, College of Land Science and Technology, China Agricultural University, Beijing 100093, China"
+      },
+      {
+        "name": "Lixiao Ma",
+        "firstname": "Lixiao",
+        "lastname": "Ma",
+        "affiliation": "State Key Laboratory of Vegetation and Environmental Change, Institute of Botany, Chinese Academy of Sciences, Beijing 100093, China"
+      },
+      {
+        "name": "Xinhua Peng",
+        "firstname": "Xinhua",
+        "lastname": "Peng",
+        "affiliation": "State Key Laboratory of Efficient Utilization of Arable Land in China, Institute of Agricultural Resources and Regional Planning, Chinese Academy of Agricultural Sciences, Beijing 100081, China"
+      },
+      {
+        "name": "Yuji Jiang",
+        "firstname": "Yuji",
+        "lastname": "Jiang",
+        "affiliation": "Fujian Provincial Key Laboratory of Soil Environmental Health and Regulation, College of Resources and Environment, Fujian Agriculture and Forestry University, Fuzhou, 350002, China"
+      },
+      {
+        "name": "Demin Yan",
+        "firstname": "Demin",
+        "lastname": "Yan",
+        "affiliation": "College of Criminal Science and Technology, Nanjing Police College, Nanjing 210023, China"
+      },
+      {
+        "name": "Hu Zhou",
+        "firstname": "Hu",
+        "lastname": "Zhou",
+        "affiliation": "Key Laboratory of Arable Land Conservation (North China), Ministry of Agriculture, College of Land Science and Technology, China Agricultural University, Beijing 100093, China"
+      }
+    ]
+  },
+  "links": [
+    {
+      "type": "package",
+      "format": "application/zip",
+      "url": "https://www.oa-deepgreen.de/api/v1/notification/9c04a870275840c3a857fc382dff373f/content",
+      "packaging": "https://datahub.deepgreen.org/FilesAndJATS"
+    },
+    {
+      "type": "package",
+      "format": "application/zip",
+      "url": "https://www.oa-deepgreen.de/api/v1/notification/9c04a870275840c3a857fc382dff373f/content/SimpleZip.zip",
+      "packaging": "http://purl.org/net/sword/package/SimpleZip"
+    }
+  ]
+}

@@ -32,6 +32,7 @@
 namespace Opus\DeepGreen\Console;
 
 use Opus\DeepGreen\DeepGreenClient;
+use Opus\DeepGreen\Notification;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -42,6 +43,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 
 use function array_keys;
+use function json_encode;
 use function sprintf;
 use function strtolower;
 
@@ -89,15 +91,17 @@ EOT;
 
         $notificationId = $input->getArgument(self::ARGUMENT_NOTIFICATION_ID);
 
-        $notification = $client->fetchNotification($notificationId);
+        $response = $client->fetchNotification($notificationId);
 
-        if ($notification === null) {
+        if ($response === null) {
             $output->writeln('<error>Notification not found</error>');
             return self::FAILURE;
         }
 
+        $notification = new Notification(json_encode($response));
+
         $formatOption = $input->getOption(self::OPTION_FORMAT);
-        $formats      = $client->getAvailableDownloadFormats($notification);
+        $formats      = $notification->getDownloadFormats();
         $formatKey    = null;
 
         if ($formatOption !== null) {

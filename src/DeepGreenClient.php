@@ -43,13 +43,15 @@ use Zend_Config;
 use Zend_Config_Exception;
 use Zend_Config_Ini;
 
+use function dirname;
 use function fclose;
+use function file_exists;
 use function fopen;
 use function fwrite;
+use function getenv;
 use function json_decode;
-use function strrpos;
-use function strtolower;
-use function substr;
+use function json_encode;
+use function rtrim;
 
 /**
  * TODO handle 400 bad requests (json error message)
@@ -58,8 +60,6 @@ use function substr;
 class DeepGreenClient
 {
     use ConfigTrait;
-
-    const DEFAULT_SERVICE_URL = 'https://test.oa-deepgreen.de/api/v1/';
 
     const FORMAT_FILES_AND_JATS = 'https://datahub.deepgreen.org/FilesAndJATS';
     const FORMAT_SIMPLE_ZIP     = 'http://purl.org/net/sword/package/SimpleZip';
@@ -148,11 +148,11 @@ class DeepGreenClient
     }
 
     /**
-     * @param array       $notification
-     * @param string      $outputFile
-     * @param string|null $format
-     * @param callable    $callback
-     * @return null
+     * @param array|Notification $notification
+     * @param string             $outputFile
+     * @param string|null        $format
+     * @param callable           $callback
+     * @return string Path to downloaded file
      * @throws DeepGreenException
      * @throws TransportExceptionInterface
      *
@@ -164,7 +164,13 @@ class DeepGreenClient
             $format = self::FORMAT_FILES_AND_JATS;
         }
 
-        $link = $this->getLinkForFormat($notification, $format);
+        if ($notification instanceof Notification) {
+            $notificationObj = $notification;
+        } else {
+            $notificationObj = new Notification(json_encode($notification));
+        }
+
+        $link = $notificationObj->getDownloadLink($format);
 
         if ($link === null) {
             throw new Exception('Requested format not found');
@@ -188,7 +194,7 @@ class DeepGreenClient
             throw new Exception("Error downloading package ({$statusCode})", $statusCode);
         }
 
-        $filePath = APPLICATION_PATH . '/' . $outputFile;
+        $filePath = $outputFile; // TODO configure default target folder?
 
         $file = fopen($filePath, 'w');
         foreach ($httpClient->stream($response) as $chunk) {
@@ -196,56 +202,7 @@ class DeepGreenClient
         }
         fclose($file);
 
-        return null;
-    }
-
-    /**
-     * @param array $notification
-     * @param string $format
-     * @return string
-     *
-     * TODO capsule in a DeepGreenNotification object? Might be nice!
-     */
-    public function getLinkForFormat($notification, $format)
-    {
-        if (! isset($notification['links'])) {
-            throw new DeepGreenException('No links found for document.');
-        }
-
-        $links  = $notification['links'];
-        $format = strtolower($format);
-
-        foreach ($links as $link) {
-            if (strtolower($link['packaging']) === $format) {
-                return $link['url'];
-            }
-        }
-
-        throw new DeepGreenException('Format not available for document.');
-    }
-
-    /**
-     * @param array $notification
-     * @return string[]
-     * @throws DeepGreenException
-     */
-    public function getAvailableDownloadFormats($notification)
-    {
-        if (! isset($notification['links'])) {
-            throw new DeepGreenException('No links found for document.');
-        }
-
-        $links = $notification['links'];
-
-        $formats = [];
-
-        foreach ($links as $link) {
-            $format          = $link['packaging'];
-            $label           = substr($format, strrpos($format, '/') + 1);
-            $formats[$label] = $format;
-        }
-
-        return $formats;
+        return $filePath;
     }
 
     /**
@@ -273,7 +230,12 @@ class DeepGreenClient
      */
     public function setServiceUrl($serviceUrl)
     {
-        $this->serviceUrl = $serviceUrl;
+        if ($serviceUrl !== null) {
+            $this->serviceUrl = rtrim($serviceUrl, '/') . '/';
+        } else {
+            $this->serviceUrl = null;
+        }
+
         return $this;
     }
 
@@ -340,16 +302,18 @@ class DeepGreenClient
      * @return Zend_Config
      * @throws Zend_Config_Exception
      *
-     * TODO use getConfigFilePath
+     * TODO remove 'deepgreen.' prefix?
      */
     public function getDeepGreenConfig()
     {
-        $config = $this->getConfig();
-        if (! isset($config->deepgreen->configFile)) {
-            return $config; // use global config as fallback
+        $configFile = $this->getConfigFilePath();
+
+        if ($configFile === null || ! file_exists($configFile)) {
+            // TODO log, but where in standalone mode
+            return $this->getConfig();
         }
 
-        return new Zend_Config_Ini($config->deepgreen->configFile);
+        return new Zend_Config_Ini($configFile);
     }
 
     /**
@@ -360,7 +324,7 @@ class DeepGreenClient
         $config = $this->getConfig();
 
         if (! isset($config->deepgreen->configFile)) {
-            return APPLICATION_PATH . '/deepgreen.ini';
+            return dirname(__DIR__) . '/deepgreen.ini';
         }
 
         return $config->deepgreen->configFile;
@@ -379,6 +343,10 @@ class DeepGreenClient
      */
     public function getDefaultServiceUrl()
     {
-        return self::DEFAULT_SERVICE_URL;
+        if (getenv('APPLICATION_ENV') !== false || getenv('APPLICATION_ENV') === 'production') {
+            return 'https://www.oa-deepgreen.de/api/v1/';
+        } else {
+            return 'https://test.oa-deepgreen.de/api/v1/';
+        }
     }
 }
