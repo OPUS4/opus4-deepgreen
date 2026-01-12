@@ -52,7 +52,7 @@ conflicts between incoming and already existing documents.
 EOT;
 
         $this->setName('deepgreen:log')
-            ->setDescription('List imports and conflicts.')
+            ->setDescription('List imports and conflicts. <error>TODO</error>')
             ->setHelp($help);
     }
 

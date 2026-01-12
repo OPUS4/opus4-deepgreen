@@ -59,7 +59,7 @@ This command can be used to analyse updates for documents coming from DeepGreen.
 EOT;
 
         $this->setName('deepgreen:diff')
-            ->setDescription('Compares DeepGreen data with existing document')
+            ->setDescription('Compares DeepGreen data with existing document <error>TODO</error>')
             ->setHelp($help)
             ->addOption(
                 self::OPTION_OPUS_ID,
