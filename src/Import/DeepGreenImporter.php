@@ -41,6 +41,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Stopwatch\Stopwatch;
 
+use function count;
 use function sprintf;
 
 /**
@@ -86,8 +87,7 @@ class DeepGreenImporter
 
             $notificationId = $notification['id'];
 
-            if ($this->isAlreadyImported($notificationId))
-            {
+            if ($this->isAlreadyImported($notificationId)) {
                 $output->writeln(sprintf('Notification %s has already been imported.', $notificationId));
                 $skippedCount++;
                 continue;
