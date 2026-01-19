@@ -32,6 +32,7 @@
 namespace Opus\DeepGreen\Import;
 
 use Opus\DeepGreen\DeepGreenException;
+use Opus\Import\SwordImporter;
 
 /**
  * Imports a FilesAndJats package.
@@ -50,14 +51,19 @@ class FilesAndJatsImporter
     public function import(string $path)
     {
         $package = new FilesAndJatsPackage($path);
-        $package->unpack();
+        $extractedPath = $package->unpack();
         $metadataXml = $package->getMetadataXml();
 
         $converter = new JatsToOpusConverter(); // TODO get from factory method (and support injection)
 
         $opusXml = $converter->convert($metadataXml);
 
-        // TODO use OPUS XML importer to create Document
+        $importer = new SwordImporter($opusXml);
+        $importer->setImportDir($extractedPath);
+
+        $importer->run();
+
+        // TODO import works, but are all files added?
 
         // TODO check for duplicate DOI (can this be done earlier?)
         //      delegate check to external, configurable class (should not be responsibility of this class)
@@ -72,4 +78,6 @@ class FilesAndJatsImporter
 
         $package->cleanup();
     }
+
+
 }
