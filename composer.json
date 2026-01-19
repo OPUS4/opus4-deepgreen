@@ -18,7 +18,8 @@
     "symfony/console": "*",
     "symfony/http-client": "*",
     "symfony/filesystem": "*",
-    "symfony/mime": "*"
+    "symfony/mime": "*",
+    "symfony/stopwatch": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "10.*",

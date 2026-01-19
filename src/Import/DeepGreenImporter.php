@@ -31,9 +31,15 @@
 
 namespace Opus\DeepGreen\Import;
 
+use Exception;
+use Opus\Common\Repository;
 use Opus\DeepGreen\DeepGreenClient;
+use Opus\DeepGreen\DeepGreenException;
+use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 use function sprintf;
 
@@ -48,8 +54,18 @@ class DeepGreenImporter
     /** @var OutputInterface */
     private $output;
 
-    public function import()
+    /**
+     * @param string $since
+     * @return void
+     * @throws DeepGreenException
+     *
+     * TODO use progress bar for interactive import
+     */
+    public function import($since)
     {
+        $stopwatch = new Stopwatch();
+        $stopwatch->start('import');
+
         $output = $this->getOutput();
 
         $client = new DeepGreenClient();
@@ -57,6 +73,10 @@ class DeepGreenImporter
         $response = $client->fetchNotifications($since);
 
         $notifications = $response['notifications'];
+
+        $importedCount = 0;
+        $errorCount    = 0;
+        $skippedCount  = 0;
 
         foreach ($notifications as $notification) {
             if (! isset($notification['id'])) {
@@ -66,20 +86,64 @@ class DeepGreenImporter
 
             $notificationId = $notification['id'];
 
+            if ($this->isAlreadyImported($notificationId))
+            {
+                $output->writeln(sprintf('Notification %s has already been imported.', $notificationId));
+                $skippedCount++;
+                continue;
+            }
+
             $output->writeln(sprintf('Importing notification ID: %s', $notificationId));
 
-            // $downloadLink = $client->getLinkForFormat($notification, DeepGreenClient::FORMAT_FILES_AND_JATS);
-
+            // TODO location underneath workspace
             $outputFile = "download-{$notificationId}.zip";
 
             try {
                 $client->fetchDocument($notification, $outputFile, DeepGreenClient::FORMAT_FILES_AND_JATS);
             } catch (Exception $ex) {
                 $output->writeln(sprintf('<error>%s</error>', $ex->getMessage()));
+                $errorCount++;
+                continue;
+            }
+
+            try {
+                $importer = new FilesAndJatsImporter();
+                $importer->import($outputFile, $notificationId);
+                $importedCount++;
+            } catch (Exception $ex) {
+                $output->writeln(sprintf('<error>%s</error>', $ex->getMessage()));
+                $errorCount++;
+            } finally {
+                // TODO keep output file if duplicate DOI (move to inbox)
+                // TODO keep output file if error (move to import/error)? Move to inbox, tagged with '-error'?
+                $filesystem = new Filesystem();
+                $filesystem->remove($outputFile);
             }
         }
 
-        $output->writeln('');
+        $event = $stopwatch->stop('import');
+
+        $output->writeln(sprintf(
+            'DeepGreen import finished (%s, %s)',
+            Helper::formatMemory($event->getMemory()),
+            Helper::formatTime($event->getDuration() / 1000, 3)
+        ));
+
+        // TODO output as table (is this verbose)?
+        $output->writeln(sprintf("  %s \tNew documents", $importedCount));
+        $output->writeln(sprintf("  %s \tSkipped documents (already imported)", $skippedCount));
+        $output->writeln(sprintf("  %s \tDocuments with errors", $errorCount));
+    }
+
+    public function isAlreadyImported(string $notificationId): bool
+    {
+        $finder = Repository::getInstance()->getDocumentFinder();
+
+        $finder->setEnrichmentValue('deepgreen.notificationId', $notificationId);
+
+        $documentIds = $finder->getIds();
+
+        return count($documentIds) > 0;
     }
 
     public function getOutput(): OutputInterface

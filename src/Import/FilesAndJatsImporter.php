@@ -32,6 +32,7 @@
 namespace Opus\DeepGreen\Import;
 
 use Opus\DeepGreen\DeepGreenException;
+use Opus\Import\AdditionalEnrichments;
 use Opus\Import\SwordImporter;
 
 /**
@@ -39,6 +40,7 @@ use Opus\Import\SwordImporter;
  *
  * TODO Where should the DOI check go?
  * TODO refactor class and use parent class to avoid duplicating basic import workflow for OPUS 4
+ * TODO should this extend the SwordImporter? Probably not because it creates undesired dependencies
  */
 class FilesAndJatsImporter
 {
@@ -48,20 +50,30 @@ class FilesAndJatsImporter
      *
      * TODO return Document or docId?
      */
-    public function import(string $path)
+    public function import(string $path, string $notificationId)
     {
-        $package = new FilesAndJatsPackage($path);
+        $package       = new FilesAndJatsPackage($path);
         $extractedPath = $package->unpack();
-        $metadataXml = $package->getMetadataXml();
+        $metadataXml   = $package->getMetadataXml();
 
         $converter = new JatsToOpusConverter(); // TODO get from factory method (and support injection)
 
         $opusXml = $converter->convert($metadataXml);
 
         $importer = new SwordImporter($opusXml);
+
+        $enrichments = new AdditionalEnrichments(); // TODO better way without class dependency (maybe getting object from Importer)
+        $enrichments->addEnrichment('deepgreen.notificationId', $notificationId);
+        $enrichments->setSource('deepgreen');
+        // TODO set checksum on $enrichments?
+        $importer->setAdditionalEnrichments($enrichments);
+
         $importer->setImportDir($extractedPath);
 
+        // TODO do not add metadata file to Document
         $importer->run();
+        // TODO do not store document if DOI is already present in database
+        //      Optionally query user?
 
         // TODO import works, but are all files added?
 
@@ -70,14 +82,8 @@ class FilesAndJatsImporter
 
         $files = $package->getFiles();
 
-        // TODO add files to document
-
         // TODO Post processing (import rules)
-
-        // TODO save document to database
 
         $package->cleanup();
     }
-
-
 }

@@ -31,6 +31,7 @@
 
 namespace Opus\DeepGreen\Console;
 
+use Opus\DeepGreen\Import\DeepGreenImporter;
 use Opus\DeepGreen\Import\FilesAndJatsImporter;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -143,6 +144,10 @@ EOT;
         if ($since === null) {
             $since = date('Y-m-d', strtotime('-1 month'));
         }
+
+        $importer = new DeepGreenImporter();
+        $importer->setOutput($output);
+        $importer->import($since);
 
         return self::SUCCESS;
     }
