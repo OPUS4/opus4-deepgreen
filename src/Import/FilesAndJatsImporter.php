@@ -34,6 +34,8 @@ namespace Opus\DeepGreen\Import;
 use Opus\DeepGreen\DeepGreenException;
 use Opus\Import\AdditionalEnrichments;
 use Opus\Import\SwordImporter;
+use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Imports a FilesAndJats package.
@@ -44,6 +46,9 @@ use Opus\Import\SwordImporter;
  */
 class FilesAndJatsImporter
 {
+    /** @var OutputInterface */
+    private $output;
+
     /**
      * @return void
      * @throws DeepGreenException
@@ -61,6 +66,7 @@ class FilesAndJatsImporter
         $opusXml = $converter->convert($metadataXml);
 
         $importer = new SwordImporter($opusXml);
+        $importer->setOutput($this->getOutput());
 
         $enrichments = new AdditionalEnrichments(); // TODO better way without class dependency (maybe getting object from Importer)
         $enrichments->addEnrichment('deepgreen.notificationId', $notificationId);
@@ -85,5 +91,20 @@ class FilesAndJatsImporter
         // TODO Post processing (import rules)
 
         $package->cleanup();
+    }
+
+    public function getOutput(): OutputInterface
+    {
+        if ($this->output === null) {
+            $this->output = new NullOutput();
+        }
+
+        return $this->output;
+    }
+
+    public function setOutput(OutputInterface $output): self
+    {
+        $this->output = $output;
+        return $this;
     }
 }
