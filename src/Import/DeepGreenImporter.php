@@ -32,6 +32,7 @@
 namespace Opus\DeepGreen\Import;
 
 use Exception;
+use Opus\App\Common\Configuration;
 use Opus\Common\Repository;
 use Opus\DeepGreen\DeepGreenClient;
 use Opus\DeepGreen\DeepGreenException;
@@ -39,6 +40,7 @@ use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Stopwatch\Stopwatch;
 
 use function count;
@@ -54,6 +56,9 @@ class DeepGreenImporter
 {
     /** @var OutputInterface */
     private $output;
+
+    /** @var string|null */
+    private $downloadBasePath;
 
     /**
      * @param string $since
@@ -75,9 +80,19 @@ class DeepGreenImporter
 
         $notifications = $response['notifications'];
 
+        $output->writeln(sprintf('Found %d notifications', count($notifications)));
+
         $importedCount = 0;
         $errorCount    = 0;
         $skippedCount  = 0;
+
+        $filesystem = new Filesystem();
+
+        // TODO make sure download folder exists
+        $downloadBasePath = $this->getDownloadBasePath();
+        if (! $filesystem->exists($downloadBasePath)) {
+            $filesystem->mkdir($downloadBasePath);
+        }
 
         foreach ($notifications as $notification) {
             if (! isset($notification['id'])) {
@@ -88,15 +103,20 @@ class DeepGreenImporter
             $notificationId = $notification['id'];
 
             if ($this->isAlreadyImported($notificationId)) {
-                $output->writeln(sprintf('Notification %s has already been imported.', $notificationId));
+                $output->writeln(sprintf('Notification <info>%s</info> has already been imported.', $notificationId));
                 $skippedCount++;
                 continue;
             }
 
-            $output->writeln(sprintf('Importing notification ID: %s', $notificationId));
+            // TODO get DOI from notification
+            // TODO check if DOI is present
+
+            $output->writeln(sprintf('Importing notification ID: <info>%s</info>', $notificationId));
 
             // TODO location underneath workspace
-            $outputFile = "download-{$notificationId}.zip";
+            $outputFile = Path::join($downloadBasePath, "download-{$notificationId}.zip");
+
+            $output->writeln(sprintf('Download to %s', $outputFile));
 
             try {
                 $client->fetchDocument($notification, $outputFile, DeepGreenClient::FORMAT_FILES_AND_JATS);
@@ -108,6 +128,7 @@ class DeepGreenImporter
 
             try {
                 $importer = new FilesAndJatsImporter();
+                $importer->setOutput($output);
                 $importer->import($outputFile, $notificationId);
                 $importedCount++;
             } catch (Exception $ex) {
@@ -146,6 +167,17 @@ class DeepGreenImporter
         return count($documentIds) > 0;
     }
 
+    public function isDoiExists(string $doi): bool
+    {
+        $finder = Repository::getInstance()->getDocumentFinder();
+
+        $finder->setIdentifierValue('doi', $doi);
+
+        $documentIds = $finder->getIds();
+
+        return count($documentIds) > 0;
+    }
+
     public function getOutput(): OutputInterface
     {
         if (null === $this->output) {
@@ -158,6 +190,22 @@ class DeepGreenImporter
     public function setOutput(OutputInterface $output): self
     {
         $this->output = $output;
+        return $this;
+    }
+
+    public function getDownloadBasePath(): string
+    {
+        if ($this->downloadBasePath === null) {
+            $workspacePath          = Configuration::getInstance()->getWorkspacePath();
+            $this->downloadBasePath = Path::join($workspacePath, 'deepgreen');
+        }
+
+        return $this->downloadBasePath;
+    }
+
+    public function setDownloadBasePath(string $path): self
+    {
+        $this->downloadBasePath = $path;
         return $this;
     }
 }
