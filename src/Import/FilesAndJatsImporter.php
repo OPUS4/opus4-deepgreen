@@ -37,6 +37,11 @@ use Opus\Import\SwordImporter;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use function basename;
+use function sprintf;
+
+use const PHP_EOL;
+
 /**
  * Imports a FilesAndJats package.
  *
