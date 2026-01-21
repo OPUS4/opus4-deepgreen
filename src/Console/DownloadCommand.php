@@ -138,7 +138,7 @@ EOT;
         if ($outputFile === null) {
             // TODO include format in name?
             // TODO generate name from metadata?
-            $outputFile = "download-{$notificationId}.zip";
+            $outputFile = "deepgreen-{$notificationId}.zip";
         }
 
         $progress = new ProgressBar($output, 100);
