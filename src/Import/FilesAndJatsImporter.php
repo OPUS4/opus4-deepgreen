@@ -55,12 +55,11 @@ class FilesAndJatsImporter
     private $output;
 
     /**
-     * @return void
      * @throws DeepGreenException
      *
      * TODO return Document or docId?
      */
-    public function import(string $path, ?string $notificationId = null)
+    public function import(string $path, ?string $notificationId = null): int
     {
         $output = $this->getOutput();
 
@@ -123,6 +122,8 @@ class FilesAndJatsImporter
         //      delegate check to external, configurable class (should not be responsibility of this class)
 
         // TODO Post processing (import rules)
+
+        return $docId;
     }
 
     public function getOutput(): OutputInterface

@@ -42,8 +42,11 @@ class FilesAndJatsImporterTest extends TestCase
 
         $importer = new FilesAndJatsImporter();
 
-        $importer->import($packageFile);
+        $docId = $importer->import($packageFile);
 
+        $this->assertGreaterThan(0, $docId);
+
+        // TODO there should be a way to ask the importer for doc IDs
         // TODO check document was stored in database
     }
 }
