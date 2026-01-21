@@ -55,7 +55,7 @@ class FilesAndJatsImporter
      *
      * TODO return Document or docId?
      */
-    public function import(string $path, string $notificationId)
+    public function import(string $path, ?string $notificationId = null)
     {
         $package       = new FilesAndJatsPackage($path);
         $extractedPath = $package->unpack();
@@ -69,7 +69,9 @@ class FilesAndJatsImporter
         $importer->setOutput($this->getOutput());
 
         $enrichments = new AdditionalEnrichments(); // TODO better way without class dependency (maybe getting object from Importer)
-        $enrichments->addEnrichment('deepgreen.notificationId', $notificationId);
+        if ($notificationId !== null) {
+            $enrichments->addEnrichment('deepgreen.notificationId', $notificationId);
+        }
         $enrichments->setSource('deepgreen');
         // TODO set checksum on $enrichments?
         $importer->setAdditionalEnrichments($enrichments);

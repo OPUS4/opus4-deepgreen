@@ -36,6 +36,7 @@ use Opus\App\Common\Configuration;
 use Opus\Common\Repository;
 use Opus\DeepGreen\DeepGreenClient;
 use Opus\DeepGreen\DeepGreenException;
+use Opus\DeepGreen\Notification;
 use Symfony\Component\Console\Helper\Helper;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -100,7 +101,9 @@ class DeepGreenImporter
                 continue;
             }
 
-            $notificationId = $notification['id'];
+            $notificationObj = new Notification($notification);
+
+            $notificationId = $notificationObj->getId();
 
             if ($this->isAlreadyImported($notificationId)) {
                 $output->writeln(sprintf('Notification <info>%s</info> has already been imported.', $notificationId));
@@ -108,8 +111,12 @@ class DeepGreenImporter
                 continue;
             }
 
-            // TODO get DOI from notification
-            // TODO check if DOI is present
+            $doi = $notificationObj->getDoi();
+            if ($this->isDoiExists($doi)) {
+                $output->writeln(sprintf('Notification <info>%s</info>: Document with DOI <info>%s</info> already exists.', $notificationId, $doi));
+                $skippedCount++;
+                continue;
+            }
 
             $output->writeln(sprintf('Importing notification ID: <info>%s</info>', $notificationId));
 

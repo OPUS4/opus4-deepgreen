@@ -31,6 +31,7 @@
 
 namespace Opus\DeepGreen;
 
+use function is_array;
 use function json_decode;
 use function strrpos;
 use function strtolower;
@@ -45,9 +46,13 @@ class Notification
     /** @var array */
     private $data;
 
-    public function __construct(string $json)
+    public function __construct(string|array $json)
     {
-        $this->load($json);
+        if (is_array($json)) {
+            $this->data = $json;
+        } else {
+            $this->load($json);
+        }
     }
 
     protected function load(string $json): void
@@ -67,7 +72,20 @@ class Notification
 
     public function getId(): string
     {
-        return $this->data["id"];
+        return $this->data['id'];
+    }
+
+    public function getDoi(): string|null
+    {
+        $identifiers = $this->data['metadata']['identifier'];
+
+        foreach ($identifiers as $identifier) {
+            if ($identifier['type'] === 'doi') {
+                return $identifier['id'];
+            }
+        }
+
+        return null;
     }
 
     public function getDownloadFormats(): array
