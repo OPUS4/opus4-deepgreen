@@ -45,6 +45,7 @@ use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Stopwatch\Stopwatch;
 
 use function count;
+use function implode;
 use function sprintf;
 
 /**
@@ -107,7 +108,6 @@ class DeepGreenImporter
 
             $existingDocId = $this->getDocumentForNotification($notificationId);
             if (count($existingDocId) > 0) {
-
                 $output->writeln(sprintf('Notification <info>%s</info> : Already imported (document <info>%d</info>)', $notificationId, implode(', ', $existingDocId)));
                 $skippedCount++;
                 continue;
