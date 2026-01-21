@@ -76,7 +76,15 @@ EOT;
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->writeln('THIS COMMAND IS NOT IMPLEMENTED YET.');
+        // TODO if argument is notification ID retrieve notification
+
+        // TODO check if DOI ist present in database, if not stop here
+
+        // TODO retrieve and unpack package
+        // TODO parse and create Document (without storing it)
+
+        // TODO compare documents and print differences
+
         return self::SUCCESS;
     }
 }

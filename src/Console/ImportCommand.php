@@ -142,6 +142,7 @@ EOT;
         $since = $input->getOption(self::OPTION_SINCE);
 
         if ($since === null) {
+            // TODO move to method
             $since = date('Y-m-d', strtotime('-1 month'));
         }
 
