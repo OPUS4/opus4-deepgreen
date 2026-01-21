@@ -81,7 +81,7 @@ class DeepGreenImporter
 
         $notifications = $response['notifications'];
 
-        $output->writeln(sprintf('Found %d notifications', count($notifications)));
+        $output->writeln(sprintf('Received <info>%d</info> notifications', count($notifications)));
 
         $importedCount = 0;
         $errorCount    = 0;
@@ -105,25 +105,27 @@ class DeepGreenImporter
 
             $notificationId = $notificationObj->getId();
 
-            if ($this->isAlreadyImported($notificationId)) {
-                $output->writeln(sprintf('Notification <info>%s</info> has already been imported.', $notificationId));
+            $existingDocId = $this->getDocumentForNotification($notificationId);
+            if (count($existingDocId) > 0) {
+
+                $output->writeln(sprintf('Notification <info>%s</info> : Already imported (document <info>%d</info>)', $notificationId, implode(', ', $existingDocId)));
                 $skippedCount++;
                 continue;
             }
 
             $doi = $notificationObj->getDoi();
             if ($this->isDoiExists($doi)) {
-                $output->writeln(sprintf('Notification <info>%s</info>: Document with DOI <info>%s</info> already exists.', $notificationId, $doi));
+                $output->writeln(sprintf('Notification <info>%s</info> : Document with DOI <info>%s</info> exists', $notificationId, $doi));
                 $skippedCount++;
                 continue;
             }
 
-            $output->writeln(sprintf('Importing notification ID: <info>%s</info>', $notificationId));
+            $output->writeln(sprintf('Notification <info>%s</info> : Importing...', $notificationId));
 
             // TODO location underneath workspace
-            $outputFile = Path::join($downloadBasePath, "download-{$notificationId}.zip");
+            $outputFile = Path::join($downloadBasePath, "deepgreen-{$notificationId}.zip");
 
-            $output->writeln(sprintf('Download to %s', $outputFile));
+            $output->writeln(sprintf('Download to %s', $outputFile), OutputInterface::VERBOSITY_DEBUG);
 
             try {
                 $client->fetchDocument($notification, $outputFile, DeepGreenClient::FORMAT_FILES_AND_JATS);
@@ -133,6 +135,8 @@ class DeepGreenImporter
                 continue;
             }
 
+            $keepFile = false;
+
             try {
                 $importer = new FilesAndJatsImporter();
                 $importer->setOutput($output);
@@ -141,37 +145,38 @@ class DeepGreenImporter
             } catch (Exception $ex) {
                 $output->writeln(sprintf('<error>%s</error>', $ex->getMessage()));
                 $errorCount++;
+                $keepFile = true;
             } finally {
                 // TODO keep output file if duplicate DOI (move to inbox)
                 // TODO keep output file if error (move to import/error)? Move to inbox, tagged with '-error'?
-                $filesystem = new Filesystem();
-                $filesystem->remove($outputFile);
+                if (! $keepFile) {
+                    $filesystem = new Filesystem();
+                    $filesystem->remove($outputFile);
+                }
             }
         }
 
         $event = $stopwatch->stop('import');
 
-        $output->writeln(sprintf(
-            'DeepGreen import finished (%s, %s)',
-            Helper::formatMemory($event->getMemory()),
-            Helper::formatTime($event->getDuration() / 1000, 3)
-        ));
+        $errorStyle = $errorCount > 0 ? '<error>%d</error>' : '<info>%d</info>';
 
-        // TODO output as table (is this verbose)?
-        $output->writeln(sprintf("  %s \tNew documents", $importedCount));
-        $output->writeln(sprintf("  %s \tSkipped documents (already imported)", $skippedCount));
-        $output->writeln(sprintf("  %s \tDocuments with errors", $errorCount));
+        $output->writeln(sprintf(
+            "DeepGreen import finished (%s, %s, Documents new <info>%d</info>, skipped <comment>%d</comment>, errors {$errorStyle})",
+            Helper::formatMemory($event->getMemory()),
+            Helper::formatTime($event->getDuration() / 1000, 3),
+            $importedCount,
+            $skippedCount,
+            $errorCount
+        ));
     }
 
-    public function isAlreadyImported(string $notificationId): bool
+    public function getDocumentForNotification(string $notificationId): array
     {
         $finder = Repository::getInstance()->getDocumentFinder();
 
         $finder->setEnrichmentValue('deepgreen.notificationId', $notificationId);
 
-        $documentIds = $finder->getIds();
-
-        return count($documentIds) > 0;
+        return $finder->getIds();
     }
 
     public function isDoiExists(string $doi): bool

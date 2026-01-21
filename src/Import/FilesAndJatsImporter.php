@@ -57,16 +57,23 @@ class FilesAndJatsImporter
      */
     public function import(string $path, ?string $notificationId = null)
     {
+        $output = $this->getOutput();
+
         $package       = new FilesAndJatsPackage($path);
         $extractedPath = $package->unpack();
-        $metadataXml   = $package->getMetadataXml();
+        $metadataFile  = basename($package->getMetadataFile());
+
+        $output->writeln(sprintf('Load metadata file <info>%s</info>', $metadataFile), OutputInterface::VERBOSITY_DEBUG);
+
+        $metadataXml = $package->getMetadataXml();
 
         $converter = new JatsToOpusConverter(); // TODO get from factory method (and support injection)
 
         $opusXml = $converter->convert($metadataXml);
 
         $importer = new SwordImporter($opusXml);
-        $importer->setOutput($this->getOutput());
+        $importer->setOutput($output);
+        $importer->setIgnoreFiles($metadataFile);
 
         $enrichments = new AdditionalEnrichments(); // TODO better way without class dependency (maybe getting object from Importer)
         if ($notificationId !== null) {
@@ -79,7 +86,29 @@ class FilesAndJatsImporter
         $importer->setImportDir($extractedPath);
 
         // TODO do not add metadata file to Document
-        $importer->run();
+        try {
+            $importer->run();
+        } catch (DeepGreenException $ex) {
+        } finally {
+            $package->cleanup();
+        }
+
+        $docId = $importer->getDocumentIds();
+
+        if (! empty($docId)) {
+            if ($notificationId !== null) {
+                $output->writeln(sprintf('Notification <info>%s</info> : Created document <info>%d</info>', $notificationId, $docId));
+            } else {
+                $output->writeln(sprintf('Created document <info>%d</info>' . PHP_EOL, $docId));
+            }
+        } else {
+            if ($notificationId !== null) {
+                throw new DeepGreenException(sprintf('Notification %s : Import failed', $notificationId));
+            } else {
+                throw new DeepGreenException('Import failed');
+            }
+        }
+
         // TODO do not store document if DOI is already present in database
         //      Optionally query user?
 
@@ -88,11 +117,7 @@ class FilesAndJatsImporter
         // TODO check for duplicate DOI (can this be done earlier?)
         //      delegate check to external, configurable class (should not be responsibility of this class)
 
-        $files = $package->getFiles();
-
         // TODO Post processing (import rules)
-
-        $package->cleanup();
     }
 
     public function getOutput(): OutputInterface

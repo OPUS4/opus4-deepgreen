@@ -137,7 +137,7 @@ EOT;
 
     protected function importFromServer(InputInterface $input, OutputInterface $output, ?string $notificationId = null): int
     {
-        $output->writeln('Importing from DeepGreen...');
+        $output->writeln('DeepGreen import starting...');
 
         $since = $input->getOption(self::OPTION_SINCE);
 
