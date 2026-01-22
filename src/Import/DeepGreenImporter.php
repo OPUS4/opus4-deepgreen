@@ -44,6 +44,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Stopwatch\Stopwatch;
 
+use function array_merge;
 use function count;
 use function implode;
 use function sprintf;
@@ -62,6 +63,9 @@ class DeepGreenImporter
     /** @var string|null */
     private $downloadBasePath;
 
+    /** @var DeepGreenClient */
+    private $deepGreenClient;
+
     /**
      * @param string $since
      * @return void
@@ -76,11 +80,7 @@ class DeepGreenImporter
 
         $output = $this->getOutput();
 
-        $client = new DeepGreenClient();
-
-        $response = $client->fetchNotifications($since);
-
-        $notifications = $response['notifications'];
+        $notifications = $this->fetchNotifications($since);
 
         $output->writeln(sprintf('Received <info>%d</info> notifications', count($notifications)));
 
@@ -96,6 +96,8 @@ class DeepGreenImporter
             $filesystem->mkdir($downloadBasePath);
         }
 
+        $client = $this->getDeepGreenClient();
+
         foreach ($notifications as $notification) {
             if (! isset($notification['id'])) {
                 // TODO log, output
@@ -108,14 +110,27 @@ class DeepGreenImporter
 
             $existingDocId = $this->getDocumentForNotification($notificationId);
             if (count($existingDocId) > 0) {
-                $output->writeln(sprintf('Notification <info>%s</info> : Already imported (document <info>%d</info>)', $notificationId, implode(', ', $existingDocId)));
+                $output->writeln(sprintf(
+                    'Notification <info>%s</info> : Already imported (document <info>%d</info>)',
+                    $notificationId,
+                    implode(', ', $existingDocId)
+                ));
                 $skippedCount++;
                 continue;
             }
 
+            // TODO move to separate method
             $doi = $notificationObj->getDoi();
             if ($this->isDoiExists($doi)) {
-                $output->writeln(sprintf('Notification <info>%s</info> : Document with DOI <info>%s</info> exists', $notificationId, $doi));
+                $output->writeln(sprintf(
+                    'Notification <info>%s</info> : Document with DOI <info>%s</info> exists',
+                    $notificationId,
+                    $doi
+                ));
+
+                // TODO check if deepgreen.timestamp is newer
+                // TODO get document
+
                 $skippedCount++;
                 continue;
             }
@@ -140,6 +155,7 @@ class DeepGreenImporter
             try {
                 $importer = new FilesAndJatsImporter();
                 $importer->setOutput($output);
+                // TODO set notificationId and timestamp as parameters on importer (additional enrichments)?
                 $importer->import($outputFile, $notificationId);
                 $importedCount++;
             } catch (Exception $ex) {
@@ -168,6 +184,54 @@ class DeepGreenImporter
             $skippedCount,
             $errorCount
         ));
+    }
+
+    public function getDeepGreenClient(): DeepGreenClient
+    {
+        if ($this->deepGreenClient === null) {
+            $this->deepGreenClient = new DeepGreenClient();
+        }
+
+        return $this->deepGreenClient;
+    }
+
+    public function setDeepGreenClient(DeepGreenClient $deepGreenClient): self
+    {
+        $this->deepGreenClient = $deepGreenClient;
+        return $this;
+    }
+
+    /**
+     * Fetches all notifications, if necessary using multiple requests.
+     */
+    protected function fetchNotifications(string $since): array
+    {
+        $output = $this->getOutput();
+        $client = new DeepGreenClient();
+
+        $notifications = [];
+
+        $page = 1;
+
+        do {
+            $response = $client->fetchNotifications($since, $page, 5);
+
+            // TODO exception handling if there are no notifications (less than expected) - avoid endless loop
+            $total = $response['total'];
+
+            $output->writeln(sprintf(
+                'Retrieved page %d with %d of %d notifications',
+                $page,
+                count($response['notifications']),
+                $total
+            ), OutputInterface::VERBOSITY_DEBUG);
+
+            $notifications = array_merge($notifications, $response['notifications']);
+
+            $page++;
+        } while (count($notifications) < $total);
+
+        return $notifications;
     }
 
     public function getDocumentForNotification(string $notificationId): array
