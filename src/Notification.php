@@ -31,6 +31,8 @@
 
 namespace Opus\DeepGreen;
 
+use DateTime;
+
 use function is_array;
 use function json_decode;
 use function strrpos;
@@ -86,6 +88,11 @@ class Notification
         }
 
         return null;
+    }
+
+    public function getCreatedDate(): DateTime
+    {
+        return new DateTime($this->data['created_date']);
     }
 
     public function getDownloadFormats(): array

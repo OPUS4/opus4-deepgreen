@@ -59,7 +59,7 @@ class FilesAndJatsImporter
      *
      * TODO return Document or docId?
      */
-    public function import(string $path, ?string $notificationId = null): int
+    public function import(string $path, ?string $notificationId = null, ?string $timestamp = null): int
     {
         $output = $this->getOutput();
 
@@ -83,6 +83,9 @@ class FilesAndJatsImporter
         if ($notificationId !== null) {
             $enrichments->addEnrichment('deepgreen.notificationId', $notificationId);
         }
+        if ($timestamp !== null) {
+            $enrichments->addEnrichment('deepgreen.timestamp', $timestamp);
+        }
         $enrichments->setSource('deepgreen');
         // TODO set checksum on $enrichments?
         $importer->setAdditionalEnrichments($enrichments);
@@ -101,7 +104,7 @@ class FilesAndJatsImporter
 
         if (! empty($docId)) {
             if ($notificationId !== null) {
-                $output->writeln(sprintf('Notification <info>%s</info> : Created document <info>%d</info>', $notificationId, $docId));
+                $output->writeln(sprintf('ID <info>%s</info> : Created document <info>%d</info>', $notificationId, $docId));
             } else {
                 $output->writeln(sprintf('Created document <info>%d</info>' . PHP_EOL, $docId));
             }

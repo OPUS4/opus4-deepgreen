@@ -31,8 +31,11 @@
 
 namespace Opus\DeepGreen\Import;
 
+use DateTime;
 use Exception;
 use Opus\App\Common\Configuration;
+use Opus\Common\Document;
+use Opus\Common\Model\ModelException;
 use Opus\Common\Repository;
 use Opus\DeepGreen\DeepGreenClient;
 use Opus\DeepGreen\DeepGreenException;
@@ -99,6 +102,8 @@ class DeepGreenImporter
         $client = $this->getDeepGreenClient();
 
         foreach ($notifications as $notification) {
+            $errorCount = 0;
+
             if (! isset($notification['id'])) {
                 // TODO log, output
                 continue;
@@ -111,7 +116,7 @@ class DeepGreenImporter
             $existingDocId = $this->getDocumentForNotification($notificationId);
             if (count($existingDocId) > 0) {
                 $output->writeln(sprintf(
-                    'Notification <info>%s</info> : Already imported (document <info>%d</info>)',
+                    'ID <info>%s</info> : SKIPPED - Already imported (doc <info>%d</info>)',
                     $notificationId,
                     implode(', ', $existingDocId)
                 ));
@@ -120,22 +125,46 @@ class DeepGreenImporter
             }
 
             // TODO move to separate method
-            $doi = $notificationObj->getDoi();
-            if ($this->isDoiExists($doi)) {
+            $doi           = $notificationObj->getDoi();
+            $existingDocId = $this->getDocumentForDoi($doi);
+            if (count($existingDocId) > 0) {
+                $skippedCount++;
+
+                // TODO handle multiple documents with DOI
+
+                $docId       = $existingDocId[0];
+                $existingDoc = Document::get($docId);
+                try {
+                    $docTimestampString = $existingDoc->getEnrichmentValue('deepgreen.timestamp');
+                } catch (ModelException $ex) {
+                    $docTimestampString = null;
+                }
+                if ($docTimestampString !== null) {
+                    $docTimestamp = new DateTime($docTimestampString);
+                    // $timestamp->format('Y-m-d\TH:i:sp');
+                    $timestamp = $notificationObj->getCreatedDate();
+
+                    if ($timestamp < $docTimestamp) {
+                        $output->writeln(sprintf(
+                            'ID <info>%s</info> : SKIPPED - Older than doc <info>%d</info> (DOI <info>%s</info>)',
+                            $notificationId,
+                            $docId,
+                            $doi
+                        ));
+                        continue;
+                    }
+                }
+
                 $output->writeln(sprintf(
-                    'Notification <info>%s</info> : Document with DOI <info>%s</info> exists',
+                    'ID <info>%s</info> : SKIPPED - Doc with DOI <info>%s</info> already exists',
                     $notificationId,
                     $doi
                 ));
 
-                // TODO check if deepgreen.timestamp is newer
-                // TODO get document
-
-                $skippedCount++;
                 continue;
             }
 
-            $output->writeln(sprintf('Notification <info>%s</info> : Importing...', $notificationId));
+            $output->writeln(sprintf('ID <info>%s</info> : Importing...', $notificationId));
 
             // TODO location underneath workspace
             $outputFile = Path::join($downloadBasePath, "deepgreen-{$notificationId}.zip");
@@ -156,7 +185,7 @@ class DeepGreenImporter
                 $importer = new FilesAndJatsImporter();
                 $importer->setOutput($output);
                 // TODO set notificationId and timestamp as parameters on importer (additional enrichments)?
-                $importer->import($outputFile, $notificationId);
+                $importer->import($outputFile, $notificationId, $notification['created_date']);
                 $importedCount++;
             } catch (Exception $ex) {
                 $output->writeln(sprintf('<error>%s</error>', $ex->getMessage()));
@@ -243,15 +272,13 @@ class DeepGreenImporter
         return $finder->getIds();
     }
 
-    public function isDoiExists(string $doi): bool
+    public function getDocumentForDoi(string $doi): array
     {
         $finder = Repository::getInstance()->getDocumentFinder();
 
         $finder->setIdentifierValue('doi', $doi);
 
-        $documentIds = $finder->getIds();
-
-        return count($documentIds) > 0;
+        return $finder->getIds();
     }
 
     public function getOutput(): OutputInterface
