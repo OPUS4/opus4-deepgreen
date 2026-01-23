@@ -85,11 +85,11 @@ Import notifications starting from a specific date.
   
 Import a single DeepGreen notification.
   
-  <info>deepgreen import [NOTIFICATION_ID]</info>
+  <info>deepgreen import [NOTIFICATION_ID]</info> <error>TODO</error>
   
 Import notifications stored in a JSON file.
   
-  <info>deepgreen import [JSON FILE]</info>
+  <info>deepgreen import [JSON FILE]</info> <error>TODO</error>
 
 Import a single FilesAndJATS package file.
 
@@ -97,7 +97,7 @@ Import a single FilesAndJATS package file.
   
 Import entire folder with a FilesAndJATS package.
 
-  <info>deepgreen import [FOLDER]</info>
+  <info>deepgreen import [FOLDER]</info> <error>TODO</error>
 EOT;
 
         $this->setName('deepgreen:import')
