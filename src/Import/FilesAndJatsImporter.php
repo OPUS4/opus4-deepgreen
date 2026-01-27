@@ -76,6 +76,7 @@ class FilesAndJatsImporter
         $opusXml = $converter->convert($metadataXml);
 
         $importer = new SwordImporter($opusXml);
+        $importer->setImportDocumentsWithUnsupportedMimeTypes(false);
         $importer->setOutput($output);
         $importer->setIgnoredFiles($metadataFile);
 
