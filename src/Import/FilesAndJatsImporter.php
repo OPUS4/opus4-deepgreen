@@ -77,7 +77,7 @@ class FilesAndJatsImporter
 
         $importer = new SwordImporter($opusXml);
         $importer->setOutput($output);
-        $importer->setIgnoreFiles($metadataFile);
+        $importer->setIgnoredFiles($metadataFile);
 
         $enrichments = new AdditionalEnrichments(); // TODO better way without class dependency (maybe getting object from Importer)
         if ($notificationId !== null) {
