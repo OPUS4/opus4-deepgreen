@@ -58,6 +58,9 @@ class JatsToOpusConverter
     {
         $proc = new XSLTProcessor();
         $proc->importStylesheet($this->getStylesheet());
+        $proc->registerPHPFunctions([
+            'Opus\I18n\Languages::getPart2b', // TODO find way to keep implementing class out of XSLT
+        ]);
         return $proc;
     }
 

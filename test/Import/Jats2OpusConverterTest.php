@@ -31,9 +31,15 @@
 
 namespace OpusTest\DeepGreen\Import;
 
+use DOMDocument;
+use DOMXPath;
 use Opus\Common\Document;
 use Opus\DeepGreen\Import\JatsToOpusConverter;
+use Opus\I18n\Languages;
 use PHPUnit\Framework\TestCase;
+
+use function dirname;
+use function file_get_contents;
 
 class Jats2OpusConverterTest extends TestCase
 {
@@ -49,16 +55,16 @@ class Jats2OpusConverterTest extends TestCase
 
     public function testConvert()
     {
-        $this->markTestIncomplete('function not implemented yet');
+        $jatsXml = file_get_contents(dirname(__DIR__) . '/Fixtures/files/example-jats.xml');
 
-        // TODO unpack FilesAndJats test package
+        $jatsDom = new DOMDocument();
+        $jatsDom->loadXML($jatsXml);
 
-        // TODO load JATS XML file
-        $jats = '';
+        $opusXml = $this->converter->convert($jatsDom);
 
-        $this->converter->convert($jats);
+        $xpath = new DOMXPath($opusXml);
 
-        // TODO assert success of conversion
+        $this->assertEquals('eng', $xpath->query('//opusDocument/@language')->item(0)->nodeValue);
     }
 
     public function testGetStylesheet()
@@ -80,5 +86,10 @@ class Jats2OpusConverterTest extends TestCase
         $doc = Document::get($docId);
 
         $this->assertNotNull($doc);
+    }
+
+    public function testLanguageMapping()
+    {
+        $this->assertEquals('eng', Languages::getPart2b('EN'));
     }
 }

@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:php="http://php.net/xsl">
 
     <!-- <xsl:import href="outputTokens.xsl"/> -->
     <xsl:output method="xml" omit-xml-declaration="yes" indent="yes" encoding="utf-8"/>
 
-    <xsl:variable name="langCodes" select="document('langCodeMap.xml')/langCodeMap/langCode"/>
-    <xsl:variable name="langIn" select="translate(/article/@xml:lang,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')"/>
-    <!-- <xsl:variable name="langOut">eng</xsl:variable> -->
-    <xsl:variable name="langOut" select="$langCodes[@iso639-1=$langIn]/@iso639-2"/>
+    <xsl:variable name="lang" select="php:functionString('Opus\I18n\Languages::getPart2b', /article/@xml:lang)"/>
 
     <xsl:template match="/">
         <import>
             <opusDocument>
                 <xsl:attribute name="language">
-                    <xsl:value-of select="$langOut"/>
+                    <xsl:value-of select="$lang"/>
                 </xsl:attribute>
                 <xsl:attribute name="type">
                     <xsl:text>article</xsl:text>
@@ -70,14 +69,14 @@
                 -->
                 <titlesMain>
                     <titleMain>
-                        <xsl:attribute name="language"><xsl:value-of select="$langOut"/></xsl:attribute>
+                        <xsl:attribute name="language"><xsl:value-of select="$lang"/></xsl:attribute>
                         <xsl:value-of select="//article-meta/title-group/article-title"/>
                     </titleMain>
                 </titlesMain>
                 <titles>
                     <xsl:for-each select="//journal-meta//journal-title">
                         <title>
-                            <xsl:attribute name="language"><xsl:value-of select="$langOut"/></xsl:attribute>
+                            <xsl:attribute name="language"><xsl:value-of select="$lang"/></xsl:attribute>
                             <xsl:attribute name="type"><xsl:text>parent</xsl:text></xsl:attribute>
                             <xsl:value-of select="normalize-space(text())"/>
                         </title>
@@ -86,7 +85,7 @@
                 <abstracts>
                     <xsl:if test="//article-meta/abstract">
                         <abstract>
-                            <xsl:attribute name="language"><xsl:value-of select="$langOut"/></xsl:attribute>
+                            <xsl:attribute name="language"><xsl:value-of select="$lang"/></xsl:attribute>
                             <xsl:value-of select="//article-meta/abstract"/>
                         </abstract>
                     </xsl:if>
@@ -128,14 +127,14 @@
                 </persons>
                 <keywords>
                     <keyword>
-                        <xsl:attribute name="language"><xsl:value-of select="$langOut"/></xsl:attribute>
+                        <xsl:attribute name="language"><xsl:value-of select="$lang"/></xsl:attribute>
                         <xsl:attribute name="type"><xsl:text>swd</xsl:text></xsl:attribute>
                         <xsl:text>-</xsl:text>
                     </keyword>
                     <xsl:for-each select="//article-meta/kwd-group/kwd">
                         <xsl:if test="string-length(normalize-space(text()))>0">
                             <keyword>
-                                <xsl:attribute name="language"><xsl:value-of select="$langOut"/></xsl:attribute>
+                                <xsl:attribute name="language"><xsl:value-of select="$lang"/></xsl:attribute>
                                 <xsl:attribute name="type"><xsl:text>uncontrolled</xsl:text></xsl:attribute>
                                 <xsl:value-of select="normalize-space(text())"/>
                             </keyword>

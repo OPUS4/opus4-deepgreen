@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Publishing DTD v1.1 20151215//EN" "http://jats.nlm.nih.gov/publishing/1.1/JATS-journalpublishing1.dtd">
+<article
+  xmlns:mml="http://www.w3.org/1998/Math/MathML"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+  dtd-version="1.1"
+  article-type="research-article"   
+  xml:lang="EN">
+	<front>
+		<article-meta>
+		    <article-id pub-id-type="doi">10.3390/s18072268</article-id>		    
+		    <title-group>
+		        <article-title>Model-Based Position and Reflectivity Estimation of Fiber Bragg Grating Sensor Arrays</article-title>
+		    </title-group>
+		    <contrib-group>
+		    			    			    			        <contrib contrib-type="author" corresp="yes">
+		            		            <contrib-id contrib-id-type="orcid" authenticated="true">http://orcid.org/0000-0003-2197-048X</contrib-id>
+		        			            <name>
+		                <surname>Werzinger</surname>
+		                <given-names>Stefan</given-names>
+		                <prefix>Dr.</prefix>
+		            </name>
+		            		            		            	
+		            <aff>		                
+		                Institute of Microwaves and Photonics, Friedrich-Alexander University Erlangen N&#252;rnberg, Cauerstr. 9, 91058 Erlangen, Germany, <email>stefan.werzinger@fau.de</email></aff>
+		        			        			        </contrib>
+		    			        <contrib contrib-type="author" corresp="no">
+		            		            <contrib-id contrib-id-type="orcid" authenticated="true">http://orcid.org/0000-0003-4182-7488</contrib-id>
+		        			            <name>
+		                <surname>Zibar</surname>
+		                <given-names>Darko</given-names>
+		                <prefix>Dr.</prefix>
+		            </name>
+		            		            		            	
+		            <aff>		                
+		                DTU Fotonik, Technical University of Denmark, Kgs. DK-2800 Lyngby, Denmark, <email>dazi@fotonik.dtu.dk</email></aff>
+		        		
+		            <aff>		                
+		                Graduate School of Advanced Optical Studies (SAOT), Friedrich-Alexander University Erlangen-N&#252;rnberg, 91052 Erlangen, Germany, <email>dazi@fotonik.dtu.dk</email></aff>
+		        			        			        </contrib>
+		    			        <contrib contrib-type="author" corresp="no">
+		            		            <contrib-id contrib-id-type="orcid" authenticated="true">http://orcid.org/0000-0002-3105-8016</contrib-id>
+		        			            <name>
+		                <surname>Köppel</surname>
+		                <given-names>Max</given-names>
+		                <prefix>Dr.</prefix>
+		            </name>
+		            		            		            	
+		            <aff>		                
+		                Institute of Microwaves and Photonics, Friedrich-Alexander University Erlangen N&#252;rnberg, Cauerstr. 9, 91058 Erlangen, Germany, <email>max.koeppel@fau.de</email></aff>
+		        		
+		            <aff>		                
+		                Graduate School of Advanced Optical Studies (SAOT), Friedrich-Alexander University Erlangen-N&#252;rnberg, 91052 Erlangen, Germany, <email>max.koeppel@fau.de</email></aff>
+		        			        			        </contrib>
+		    			        <contrib contrib-type="author" corresp="no">
+		            		            <contrib-id contrib-id-type="orcid" authenticated="true">http://orcid.org/0000-0002-6615-370X</contrib-id>
+		        			            <name>
+		                <surname>Schmauss</surname>
+		                <given-names>Bernhard</given-names>
+		                <prefix>Dr.</prefix>
+		            </name>
+		            		            		            	
+		            <aff>		                
+		                Institute of Microwaves and Photonics, Friedrich-Alexander University Erlangen N&#252;rnberg, Cauerstr. 9, 91058 Erlangen, Germany, <email>bernhard.schmauss@fau.de</email></aff>
+		        		
+		            <aff>		                
+		                Graduate School of Advanced Optical Studies (SAOT), Friedrich-Alexander University Erlangen-N&#252;rnberg, 91052 Erlangen, Germany, <email>bernhard.schmauss@fau.de</email></aff>
+		        		
+		            <aff>		                
+		                Max-Planck Institute for the Science of Light, Staudtstr. 2, 91058 Erlangen, Germany, <email>bernhard.schmauss@fau.de</email></aff>
+		        			        			        </contrib>
+		    			    		        
+		    </contrib-group>
+		    <pub-date publication-format="electronic" date-type="pub" iso-8601-date="2018-07-13">
+		        <day>13</day>
+		        <month>07</month>
+		        <year>2018</year>
+		    </pub-date>
+		    <volume>18</volume>
+		    <issue>7</issue>
+		    <history>
+		        <date date-type="accepted" iso-8601-date="2018-07-10">
+		            <day>10</day>
+		            <month>07</month>
+		            <year>2018</year>
+		        </date>
+		    </history>		     	        
+						<permissions>
+	            <copyright-statement>
+	            	&#169; 1996-2019 MDPI (Basel, Switzerland)
+	            </copyright-statement>
+	            <copyright-year>2018</copyright-year>
+	            <copyright-holder></copyright-holder>
+	            <license xlink:href="https://creativecommons.org/licenses/by/4.0/">
+	               <license-p>
+	               		This is an open access article distributed under the &lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot;&gt;Creative Commons Attribution License&lt;/a&gt; which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited
+	               </license-p>
+	            </license>
+			</permissions>
+						<kwd-group kwd-group-type="author-keywords">
+            	<title>Keywords</title>
+            	            	<kwd>optical fiber sensing</kwd>
+            	            	<kwd>fiber Bragg gratings</kwd>
+            	            	<kwd>signal processing</kwd>
+            	            	<kwd>modeling</kwd>
+            	            	<kwd>estimation of distribution algorithm</kwd>
+            	            	<kwd>optical frequency domain reflectometry</kwd>
+            	            	<kwd>temperature sensing</kwd>
+            		            
+			</kwd-group>
+					</article-meta>
+	    <journal-meta>
+	        <journal-title-group>
+	            <journal-title>Sensors</journal-title>
+	            <abbrev-journal-title>Sensors (Basel)</abbrev-journal-title>
+	        </journal-title-group>
+	        <issn publication-format="electronic">1424-8220</issn>
+	        <publisher>
+	        	<publisher-name>MDPI</publisher-name>
+	        </publisher>
+	    </journal-meta>	    
+	</front>
+</article>
+
