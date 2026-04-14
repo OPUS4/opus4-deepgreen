@@ -13,9 +13,9 @@
     "php": ">=8.1",
     "ext-dom": "*",
     "ext-xsl": "*",
-    "opus4-repo/opus4-common": "dev-master as 4.8.1",
-    "opus4-repo/opus4-import": "dev-main as 4.8.1",
-    "opus4-repo/opus4-i18n": "*",
+    "opus4-repo/opus4-common": "^4.9",
+    "opus4-repo/opus4-import": "^4.9",
+    "opus4-repo/opus4-i18n": "^4.9",
     "symfony/console": "*",
     "symfony/http-client": "*",
     "symfony/filesystem": "*",
@@ -25,7 +25,7 @@
   "require-dev": {
     "phpunit/phpunit": "10.*",
     "opus4-repo/codesniffer": "dev-laminas",
-    "opus4-repo/framework": "dev-master as 4.8.1"
+    "opus4-repo/framework": "^4.9"
   },
   "config": {
     "allow-plugins": {

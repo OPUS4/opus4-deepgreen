@@ -41,6 +41,9 @@ use function file_get_contents;
 
 class NotificationTest extends TestCase
 {
+    /** @var Notification */
+    private $notification;
+
     public function setUp(): void
     {
         parent::setUp();
