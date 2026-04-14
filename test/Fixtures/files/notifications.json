@@ -1,0 +1,413 @@
+{
+  "since": "2025-12-05T00:00:00Z",
+  "page": 1,
+  "pageSize": 25,
+  "timestamp": "2026-01-05T12:55:26Z",
+  "upto": "2026-01-05T23:59:59Z",
+  "notifications": [
+    {
+      "id": "9c04a870275840c3a857fc382dff373f",
+      "created_date": "2025-12-15T06:46:51Z",
+      "analysis_date": "2025-12-15T06:47:07Z",
+      "issn_data": "2199-398X",
+      "content": {
+        "packaging_format": "https://datahub.deepgreen.org/FilesAndJATS"
+      },
+      "embargo": {
+        "duration": "0"
+      },
+      "metadata": {
+        "title": "Long-term pig manure application increases SOC through aggregate protection and Fe-C associations in a subtropical red soil (Udic Ferralsols)",
+        "journal": "SOIL",
+        "volume": "11",
+        "issue": "2",
+        "fpage": "1095",
+        "lpage": "1108",
+        "publisher": "Copernicus Publications",
+        "publication_date": "2025-12-15T00:00:00Z",
+        "date_accepted": "2025-11-15T00:00:00Z",
+        "date_submitted": "2025-05-22T00:00:00Z",
+        "license_ref": {},
+        "identifier": [
+          {
+            "type": "issn",
+            "id": "2199-398X"
+          },
+          {
+            "type": "doi",
+            "id": "10.5194/soil-11-1095-2025"
+          }
+        ],
+        "author": [
+          {
+            "name": "Hui Rong",
+            "firstname": "Hui",
+            "lastname": "Rong",
+            "affiliation": "Key Laboratory of Arable Land Conservation (North China), Ministry of Agriculture, College of Land Science and Technology, China Agricultural University, Beijing 100093, China"
+          },
+          {
+            "name": "Zhangliu Du",
+            "firstname": "Zhangliu",
+            "lastname": "Du",
+            "affiliation": "Beijing Key Laboratory of Biodiversity and Organic Farming, College of Resources and Environmental Sciences, China Agricultural University, Beijing 100193, China"
+          },
+          {
+            "name": "Weida Gao",
+            "firstname": "Weida",
+            "lastname": "Gao",
+            "affiliation": "Key Laboratory of Arable Land Conservation (North China), Ministry of Agriculture, College of Land Science and Technology, China Agricultural University, Beijing 100093, China"
+          },
+          {
+            "name": "Lixiao Ma",
+            "firstname": "Lixiao",
+            "lastname": "Ma",
+            "affiliation": "State Key Laboratory of Vegetation and Environmental Change, Institute of Botany, Chinese Academy of Sciences, Beijing 100093, China"
+          },
+          {
+            "name": "Xinhua Peng",
+            "firstname": "Xinhua",
+            "lastname": "Peng",
+            "affiliation": "State Key Laboratory of Efficient Utilization of Arable Land in China, Institute of Agricultural Resources and Regional Planning, Chinese Academy of Agricultural Sciences, Beijing 100081, China"
+          },
+          {
+            "name": "Yuji Jiang",
+            "firstname": "Yuji",
+            "lastname": "Jiang",
+            "affiliation": "Fujian Provincial Key Laboratory of Soil Environmental Health and Regulation, College of Resources and Environment, Fujian Agriculture and Forestry University, Fuzhou, 350002, China"
+          },
+          {
+            "name": "Demin Yan",
+            "firstname": "Demin",
+            "lastname": "Yan",
+            "affiliation": "College of Criminal Science and Technology, Nanjing Police College, Nanjing 210023, China"
+          },
+          {
+            "name": "Hu Zhou",
+            "firstname": "Hu",
+            "lastname": "Zhou",
+            "affiliation": "Key Laboratory of Arable Land Conservation (North China), Ministry of Agriculture, College of Land Science and Technology, China Agricultural University, Beijing 100093, China"
+          }
+        ]
+      },
+      "links": [
+        {
+          "type": "package",
+          "format": "application/zip",
+          "url": "https://www.oa-deepgreen.de/api/v1/notification/9c04a870275840c3a857fc382dff373f/content",
+          "packaging": "https://datahub.deepgreen.org/FilesAndJATS"
+        },
+        {
+          "type": "package",
+          "format": "application/zip",
+          "url": "https://www.oa-deepgreen.de/api/v1/notification/9c04a870275840c3a857fc382dff373f/content/SimpleZip.zip",
+          "packaging": "http://purl.org/net/sword/package/SimpleZip"
+        }
+      ]
+    },
+    {
+      "id": "9f2781200c20437792934e670f687798",
+      "created_date": "2025-12-10T20:43:21Z",
+      "analysis_date": "2025-12-10T21:15:07Z",
+      "issn_data": "2073-4425",
+      "content": {
+        "packaging_format": "https://datahub.deepgreen.org/FilesAndJATS"
+      },
+      "embargo": {
+        "duration": "0"
+      },
+      "metadata": {
+        "title": "Genetic Assessment and Clinical Correlates in Severe Hypertriglyceridemia: A Systematic Review",
+        "journal": "Genes",
+        "volume": "16",
+        "issue": "11",
+        "publisher": "MDPI",
+        "publication_date": "2025-11-11T00:00:00Z",
+        "date_accepted": "2025-11-03T00:00:00Z",
+        "date_submitted": "2025-09-22T00:00:00Z",
+        "license_ref": {
+          "title": "Open Access",
+          "type": "CC BY",
+          "url": "https://creativecommons.org/licenses/by/4.0/deed.de",
+          "version": "4.0"
+        },
+        "identifier": [
+          {
+            "type": "issn",
+            "id": "2073-4425"
+          },
+          {
+            "type": "doi",
+            "id": "10.3390/genes16111377"
+          }
+        ],
+        "author": [
+          {
+            "name": "Carmine De Luca",
+            "firstname": "Carmine",
+            "lastname": "De Luca",
+            "affiliation": "Department of Clinical Medicine and Surgery, University of Naples Federico II, 80131 Naples, Italy; deluca.carmine.medicina@gmail.com (C.D.L.); paola.ciciola@unina.it (P.C.); guidoderrico1@gmail.com (G.D.); gabriella.iannuzzo@unina.it (G.I.); matteo.diminno@unina.it (M.D.M.)",
+            "identifier": [
+              {
+                "type": "orcid",
+                "id": "https://orcid.org/0009-0004-6875-9133"
+              }
+            ]
+          },
+          {
+            "name": "Paola Ciciola",
+            "firstname": "Paola",
+            "lastname": "Ciciola",
+            "affiliation": "Department of Clinical Medicine and Surgery, University of Naples Federico II, 80131 Naples, Italy; deluca.carmine.medicina@gmail.com (C.D.L.); paola.ciciola@unina.it (P.C.); guidoderrico1@gmail.com (G.D.); gabriella.iannuzzo@unina.it (G.I.); matteo.diminno@unina.it (M.D.M.)"
+          },
+          {
+            "name": "Guido D\u2019Errico",
+            "firstname": "Guido",
+            "lastname": "D\u2019Errico",
+            "affiliation": "Department of Clinical Medicine and Surgery, University of Naples Federico II, 80131 Naples, Italy; deluca.carmine.medicina@gmail.com (C.D.L.); paola.ciciola@unina.it (P.C.); guidoderrico1@gmail.com (G.D.); gabriella.iannuzzo@unina.it (G.I.); matteo.diminno@unina.it (M.D.M.)"
+          },
+          {
+            "name": "Maria Donata Di Taranto",
+            "firstname": "Maria Donata",
+            "lastname": "Di Taranto",
+            "affiliation": "Department of Molecular Medicine and Medical Biotechnologies, CEINGE Advanced Biotechnologies S.C. A R.L, University of Naples Federico II, Via S. Pansini 5, 80131 Naples, Italy; mariadonata.ditaranto@unina.it (M.D.D.T.); giuliana.fortunato@unina.it (G.F.)",
+            "identifier": [
+              {
+                "type": "orcid",
+                "id": "https://orcid.org/0000-0002-0618-7940"
+              }
+            ]
+          },
+          {
+            "name": "Giuliana Fortunato",
+            "firstname": "Giuliana",
+            "lastname": "Fortunato",
+            "affiliation": "Department of Molecular Medicine and Medical Biotechnologies, CEINGE Advanced Biotechnologies S.C. A R.L, University of Naples Federico II, Via S. Pansini 5, 80131 Naples, Italy; mariadonata.ditaranto@unina.it (M.D.D.T.); giuliana.fortunato@unina.it (G.F.)",
+            "identifier": [
+              {
+                "type": "orcid",
+                "id": "https://orcid.org/0000-0002-2209-383X"
+              }
+            ]
+          },
+          {
+            "name": "Carina Gross",
+            "firstname": "Carina",
+            "lastname": "Gross",
+            "affiliation": "Faculty of Medicine, Hannover Medical School (MHH), 30625 Hannover, Germany; carina.gross@stud.mh-hannover.de (C.G.); jonathan.garn@stud.mh-hannover.de (J.G.)"
+          },
+          {
+            "name": "Jonathan Garn",
+            "firstname": "Jonathan",
+            "lastname": "Garn",
+            "affiliation": "Faculty of Medicine, Hannover Medical School (MHH), 30625 Hannover, Germany; carina.gross@stud.mh-hannover.de (C.G.); jonathan.garn@stud.mh-hannover.de (J.G.)"
+          },
+          {
+            "name": "Gabriella Iannuzzo",
+            "firstname": "Gabriella",
+            "lastname": "Iannuzzo",
+            "affiliation": "Department of Clinical Medicine and Surgery, University of Naples Federico II, 80131 Naples, Italy; deluca.carmine.medicina@gmail.com (C.D.L.); paola.ciciola@unina.it (P.C.); guidoderrico1@gmail.com (G.D.); gabriella.iannuzzo@unina.it (G.I.); matteo.diminno@unina.it (M.D.M.)",
+            "identifier": [
+              {
+                "type": "orcid",
+                "id": "https://orcid.org/0000-0002-7392-5544"
+              }
+            ]
+          },
+          {
+            "name": "Matteo Di Minno",
+            "firstname": "Matteo",
+            "lastname": "Di Minno",
+            "affiliation": "Department of Clinical Medicine and Surgery, University of Naples Federico II, 80131 Naples, Italy; deluca.carmine.medicina@gmail.com (C.D.L.); paola.ciciola@unina.it (P.C.); guidoderrico1@gmail.com (G.D.); gabriella.iannuzzo@unina.it (G.I.); matteo.diminno@unina.it (M.D.M.)",
+            "identifier": [
+              {
+                "type": "orcid",
+                "id": "https://orcid.org/0000-0001-8059-3819"
+              }
+            ]
+          },
+          {
+            "name": "Ilenia Calcaterra",
+            "firstname": "Ilenia",
+            "lastname": "Calcaterra",
+            "affiliation": "Department of Clinical Medicine and Surgery, University of Naples Federico II, 80131 Naples, Italy; deluca.carmine.medicina@gmail.com (C.D.L.); paola.ciciola@unina.it (P.C.); guidoderrico1@gmail.com (G.D.); gabriella.iannuzzo@unina.it (G.I.); matteo.diminno@unina.it (M.D.M.)"
+          }
+        ],
+        "subject": [
+          "Systematic Review",
+          "familial chylomicronemia syndrome (FCS)",
+          "metabolic dysfunction-associated steatotic liver disease (MASLD)",
+          "polygenic hypertriglyceridemia",
+          "precision medicine",
+          "severe hypertriglyceridemia"
+        ]
+      },
+      "links": [
+        {
+          "type": "package",
+          "format": "application/zip",
+          "url": "https://www.oa-deepgreen.de/api/v1/notification/9f2781200c20437792934e670f687798/content",
+          "packaging": "https://datahub.deepgreen.org/FilesAndJATS"
+        },
+        {
+          "type": "package",
+          "format": "application/zip",
+          "url": "https://www.oa-deepgreen.de/api/v1/notification/9f2781200c20437792934e670f687798/content/SimpleZip.zip",
+          "packaging": "http://purl.org/net/sword/package/SimpleZip"
+        }
+      ]
+    },
+    {
+      "id": "f36774908e794a3ebf03e130483d3381",
+      "created_date": "2025-12-15T06:38:13Z",
+      "analysis_date": "2025-12-15T06:43:37Z",
+      "issn_data": "2297-055X",
+      "content": {
+        "packaging_format": "https://datahub.deepgreen.org/FilesAndJATS"
+      },
+      "embargo": {
+        "duration": "0"
+      },
+      "metadata": {
+        "title": "Conventional hybrid coronary vs. robot-assisted minimally invasive direct revascularization: a meta-analysis and systematic review",
+        "journal": "Frontiers in Cardiovascular Medicine",
+        "volume": "12",
+        "publisher": "Frontiers Media S.A.",
+        "publication_date": "2025-12-01T00:00:00Z",
+        "date_accepted": "2025-10-27T00:00:00Z",
+        "date_submitted": "2025-06-19T00:00:00Z",
+        "license_ref": {
+          "title": "Open Access",
+          "type": "CC-BY",
+          "url": "https://creativecommons.org/licenses/by/4.0",
+          "version": "4.0"
+        },
+        "identifier": [
+          {
+            "type": "issn",
+            "id": "2297-055X"
+          },
+          {
+            "type": "doi",
+            "id": "10.3389/fcvm.2025.1650138"
+          }
+        ],
+        "author": [
+          {
+            "name": "Carla L. Schuering",
+            "firstname": "Carla L.",
+            "lastname": "Schuering",
+            "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany"
+          },
+          {
+            "name": "Vanessa I. T. Zwaans",
+            "firstname": "Vanessa I. T.",
+            "lastname": "Zwaans",
+            "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany"
+          },
+          {
+            "name": "Anna Huang",
+            "firstname": "Anna",
+            "lastname": "Huang",
+            "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany"
+          },
+          {
+            "name": "Melanie K\u00f6hler-Seuster",
+            "firstname": "Melanie",
+            "lastname": "K\u00f6hler-Seuster",
+            "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany"
+          },
+          {
+            "name": "Johanna K. R. von Mackensen",
+            "firstname": "Johanna K. R.",
+            "lastname": "von Mackensen",
+            "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany"
+          },
+          {
+            "name": "Jasper Iske",
+            "firstname": "Jasper",
+            "lastname": "Iske",
+            "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany"
+          },
+          {
+            "name": "Julia Stein",
+            "firstname": "Julia",
+            "lastname": "Stein",
+            "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany"
+          },
+          {
+            "name": "Julius Kaemmel",
+            "firstname": "Julius",
+            "lastname": "Kaemmel",
+            "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany; DZHK (German Center for Cardiovascular Research) , Berlin , Germany"
+          },
+          {
+            "name": "Roland Heck",
+            "firstname": "Roland",
+            "lastname": "Heck",
+            "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany"
+          },
+          {
+            "name": "Christoph T. Starck",
+            "firstname": "Christoph T.",
+            "lastname": "Starck",
+            "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany; DZHK (German Center for Cardiovascular Research) , Berlin , Germany"
+          },
+          {
+            "name": "J\u00f6rg Kempfert",
+            "firstname": "J\u00f6rg",
+            "lastname": "Kempfert",
+            "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany; DZHK (German Center for Cardiovascular Research) , Berlin , Germany"
+          },
+          {
+            "name": "Stephan Jacobs",
+            "firstname": "Stephan",
+            "lastname": "Jacobs",
+            "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany; DZHK (German Center for Cardiovascular Research) , Berlin , Germany"
+          },
+          {
+            "name": "Volkmar Falk",
+            "firstname": "Volkmar",
+            "lastname": "Falk",
+            "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany; DZHK (German Center for Cardiovascular Research) , Berlin , Germany; Department of Cardiothoracic Surgery, Charit\u00e9\u2212Universit\u00e4tsmedizin Berlin, Corporate Member of Freie Universit\u00e4t Berlin and Humboldt-Universit\u00e4t zu Berlin , Berlin , Germany; Department of Health Sciences and Technology, ETH Zurich , Zurich , Switzerland"
+          },
+          {
+            "name": "Leonhard Wert",
+            "firstname": "Leonhard",
+            "lastname": "Wert",
+            "affiliation": "Department of Cardiothoracic and Vascular Surgery, Deutsches Herzzentrum der Charit\u00e9 (DHZC) , Berlin , Germany"
+          }
+        ],
+        "subject": [
+          "Systematic Review",
+          "hybrid coronary revascularisation",
+          "MIDCAB",
+          "PCI\u2014percutaneous coronary intervention (PCI)",
+          "hybrid",
+          "HCR",
+          "hybrid MIDCAB"
+        ]
+      },
+      "links": [
+        {
+          "type": "package",
+          "format": "application/zip",
+          "url": "https://www.oa-deepgreen.de/api/v1/notification/f36774908e794a3ebf03e130483d3381/content",
+          "packaging": "https://datahub.deepgreen.org/FilesAndJATS"
+        },
+        {
+          "type": "package",
+          "format": "application/zip",
+          "url": "https://www.oa-deepgreen.de/api/v1/notification/f36774908e794a3ebf03e130483d3381/content/METSMODS.zip",
+          "packaging": "http://purl.org/net/sword/package/METSMODS"
+        },
+        {
+          "type": "package",
+          "format": "application/zip",
+          "url": "https://www.oa-deepgreen.de/api/v1/notification/f36774908e794a3ebf03e130483d3381/content/SimpleZip.zip",
+          "packaging": "http://purl.org/net/sword/package/SimpleZip"
+        }
+      ]
+    }
+  ],
+  "total": 88
+}

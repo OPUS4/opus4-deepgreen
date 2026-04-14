@@ -17,3 +17,4 @@ database.ini*
 # Other
 **/.DS_Store
 /.phpunit.result.cache
+deepgreen.ini
