@@ -31,6 +31,8 @@
 
 namespace Opus\DeepGreen\Import;
 
+use DOMDocument;
+use Opus\Common\ConfigTrait;
 use Opus\DeepGreen\DeepGreenException;
 use Opus\Import\AdditionalEnrichments;
 use Opus\Import\SwordImporter;
@@ -38,8 +40,10 @@ use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use function basename;
+use function filter_var;
 use function sprintf;
 
+use const FILTER_VALIDATE_BOOLEAN;
 use const PHP_EOL;
 
 /**
@@ -51,6 +55,8 @@ use const PHP_EOL;
  */
 class FilesAndJatsImporter
 {
+    use ConfigTrait;
+
     /** @var OutputInterface */
     private $output;
 
@@ -75,9 +81,7 @@ class FilesAndJatsImporter
 
         $opusXml = $converter->convert($metadataXml);
 
-        $importer = new SwordImporter($opusXml);
-        $importer->setImportDocumentsWithUnsupportedMimeTypes(false);
-        $importer->setOutput($output);
+        $importer = $this->getImporter($opusXml);
         $importer->setIgnoredFiles($metadataFile);
 
         $enrichments = new AdditionalEnrichments(); // TODO better way without class dependency (maybe getting object from Importer)
@@ -143,5 +147,31 @@ class FilesAndJatsImporter
     {
         $this->output = $output;
         return $this;
+    }
+
+    public function getImporter(string|DOMDocument $opusXml): SwordImporter
+    {
+        $config = $this->getConfig();
+
+        $importer = new SwordImporter($opusXml);
+        $importer->setOutput($this->getOutput());
+
+        $importUnsupported = false;
+
+        if (isset($config->deepgreen->import->importAllFiles)) {
+            // Always import document if true
+            $importUnsupported = filter_var($config->deepgreen->import->importAllFiles, FILTER_VALIDATE_BOOLEAN);
+            $importer->setImportAllFiles($importUnsupported);
+        }
+
+        if (isset($config->deepgreen->import->importSupportedFiles)) {
+            // Always import document if true
+            $importUnsupported = $importUnsupported ||
+                filter_var($config->deepgreen->import->importSupportedFiles, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        $importer->setImportDocumentsWithUnsupportedMimeTypes($importUnsupported);
+
+        return $importer;
     }
 }
