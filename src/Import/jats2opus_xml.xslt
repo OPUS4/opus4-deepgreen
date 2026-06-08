@@ -3,7 +3,6 @@
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:php="http://php.net/xsl">
 
-    <!-- <xsl:import href="outputTokens.xsl"/> -->
     <xsl:output method="xml" omit-xml-declaration="yes" indent="yes" encoding="utf-8"/>
 
     <xsl:variable name="lang" select="php:functionString('Opus\I18n\Languages::getPart2b', /article/@xml:lang)"/>
@@ -51,22 +50,6 @@
                 <xsl:attribute name="serverState">
                     <xsl:text>unpublished</xsl:text>
                 </xsl:attribute>
-                <!--
-                language="eng"
-                type="article|bachelorthesis|bookpart|book|conferenceobject|contributiontoperiodical|coursematerial|diplom|doctoralthesis|examen|habilitation|image|lecture|magister|masterthesis|movingimage|other|periodical|preprint|report|review|studythesis|workingpaper"
-                pageFirst=""
-                pageLast=""
-                pageNumber=""
-                edition=""
-                volume=""
-                issue=""
-                publisherName=""
-                publisherPlace=""
-                creatingCorporation=""
-                contributingCorporation=""
-                belongsToBibliography="true|false"
-                serverState="audited|published|restricted|inprogress|unpublished"
-                -->
                 <titlesMain>
                     <titleMain>
                         <xsl:attribute name="language"><xsl:value-of select="$lang"/></xsl:attribute>
@@ -106,21 +89,6 @@
                                 </xsl:attribute>
                                 <xsl:attribute name="firstName"><xsl:value-of select="name/given-names"/></xsl:attribute>
                                 <xsl:attribute name="lastName"><xsl:value-of select="name/surname"/></xsl:attribute>
-                                <!--
-                                role="advisor|author|contributor|editor|referee|translator|submitter|other"
-                                firstName=""
-                                lastName=""
-                                academicTitle=""
-                                email=""
-                                allowEmailContact="true|false"
-                                placeOfBirth=""
-                                dateOfBirth="1999-12-31"
-                                -->
-                                <!--
-                                <identifiers>
-                                  <identifier type="orcid|gnd|intern">?????</identifier>
-                                </identifiers>
-                                -->
                             </person>
                         </xsl:if>
                     </xsl:for-each>
@@ -141,22 +109,8 @@
                         </xsl:if>
                     </xsl:for-each>
                 </keywords>
-                <!--
-                <dnbInstitutions>
-                    <dnbInstitution id="<integer>" role="grantor|publisher"/>
-                </dnbInstitutions>
-                -->
+
                 <dates>
-                    <!--
-                    <xsl:for-each select="//article-meta/pub-date">
-                       <xsl:if test="(contains(@pub-type, 'epub') and year and month) or
-                                     (contains(@publication-format, 'electronic') and contains(@date-type, 'pub') and year and month)">
-                          <mods:dateIssued encoding="iso8601">
-                             <xsl:call-template name="compose-date"></xsl:call-template>
-                          </mods:dateIssued>
-                       </xsl:if>
-                </xsl:for-each>
-                    -->
                     <xsl:for-each select="//article-meta/pub-date">
                         <xsl:choose>
                             <xsl:when test="contains(@pub-type,'epub') and year and month">
@@ -210,73 +164,6 @@
                         </identifier>
                     </xsl:if>
                 </identifiers>
-                <!--
-                <identifiers>
-                    <identifier>
-                       <xsl:for-each select="//journal-meta/issn[@pub-type='ppub' or @publication-format='print']">
-                          <xsl:value-of select="normalize-space(text())"/>
-                          <xsl:if test="position() != last()">
-                             <xsl:text> , </xsl:text>
-                          </xsl:if>
-                          <xsl:if test="position() = last()">
-                             <xsl:text> (pISSN)</xsl:text>
-                          </xsl:if>
-                       </xsl:for-each>
-                       <xsl:if test="//journal-meta/issn[@pub-type='epub' or @publication-format='electronic']">
-                          <xsl:text> ; </xsl:text>
-                          <xsl:for-each select="//journal-meta/issn[@pub-type='epub' or @publication-format='electronic']">
-                             <xsl:value-of select="normalize-space(text())"/>
-                             <xsl:if test="position() != last()">
-                                <xsl:text> , </xsl:text>
-                             </xsl:if>
-                             <xsl:if test="position() = last()">
-                                <xsl:text> (eISSN)</xsl:text>
-                             </xsl:if>
-                          </xsl:for-each>
-                       </xsl:if>
-                    </identifier>
-                    <identifier>
-                       <xsl:attribute name="type"><xsl:text>doi</xsl:text></xsl:attribute>
-                       <xsl:value-of select="//article-meta/article-id[@pub-id-type='doi']"/>
-                    </identifier>
-                  <xsl:if test="//article-meta/article-id[@pub-id-type='pmid']">
-                    <identifier>
-                       <xsl:attribute name="type"><xsl:text>pmid</xsl:text></xsl:attribute>
-                       <xsl:value-of select="//article-meta/article-id[@pub-id-type='pmid']"/>
-                    </identifier>
-                  </xsl:if>
-                </identifiers>
-                -->
-                <!--
-                <notes>
-                    <note visibility="private|public">?????</note>
-                </notes>
-                <collections>
-                    <collection id="<integer>"/>
-                </collections>
-                <series>
-                    <seriesItem id="<integer>" number=""/>
-                </series>
-                <enrichments>
-                    <enrichment key="">?????</enrichment>
-                </enrichments>
-                <licences>
-                    <licence id="<integer>"/>
-                </licences>
-                <files basedir="">
-                    <file
-                          path=""
-                          name=""
-                          language=""
-                          displayName=""
-                          visibleInOai="true|false"
-                          visibleInFrontdoor="true|false"
-                          sortOrder="<int>">
-                      <comment>?????</comment>
-                      <checksum type="md5|sha256|sha512">?????</checksum>
-                    </file>
-                </files>
-                -->
             </opusDocument>
         </import>
     </xsl:template>
