@@ -50,11 +50,23 @@
                 <xsl:attribute name="serverState">
                     <xsl:text>unpublished</xsl:text>
                 </xsl:attribute>
+                <xsl:if test="//article-meta/counts/page-count/@count">
+                    <xsl:attribute name="pageNumber">
+                    <xsl:value-of select="//article-meta/counts/page-count/@count"/>
+                    </xsl:attribute>
+                </xsl:if>
+
                 <titlesMain>
                     <titleMain>
                         <xsl:attribute name="language"><xsl:value-of select="$lang"/></xsl:attribute>
-                        <xsl:value-of select="//article-meta/title-group/article-title"/>
+                        <xsl:value-of select="normalize-space(//article-meta/title-group/article-title)"/>
                     </titleMain>
+                    <xsl:for-each select="//article-meta/title-group/trans-title-group/trans-title">
+                        <titleMain>
+                            <xsl:call-template name="insert-lang-attrib"/>
+                            <xsl:value-of select="normalize-space()"/>
+                        </titleMain>
+                    </xsl:for-each>
                 </titlesMain>
                 <titles>
                     <xsl:for-each select="//journal-meta//journal-title">
@@ -64,18 +76,53 @@
                             <xsl:value-of select="normalize-space(text())"/>
                         </title>
                     </xsl:for-each>
-                </titles>
-                <abstracts>
-                    <xsl:if test="//article-meta/abstract">
-                        <abstract>
-                            <xsl:attribute name="language"><xsl:value-of select="$lang"/></xsl:attribute>
-                            <xsl:value-of select="//article-meta/abstract"/>
-                        </abstract>
+                     <xsl:if test="//article-meta/title-group/subtitle[not(@content-type='running-title') and not(@content-type='running-author')]">
+                        <!-- exclude page headers from Springer -->
+                        <title>
+                        <xsl:attribute name="language"><xsl:value-of select="$lang"/></xsl:attribute>
+                        <xsl:attribute name="type"><xsl:text>sub</xsl:text></xsl:attribute>
+                        <xsl:value-of select="normalize-space(//article-meta/title-group/subtitle[not(@content-type='running-title') and not(@content-type='running-author')])"/>
+                        </title>
                     </xsl:if>
-                </abstracts>
+                    <xsl:for-each select="//article-meta/title-group/trans-title-group/trans-subtitle">
+                        <title>
+                        <xsl:call-template name="insert-lang-attrib"/>
+                        <xsl:attribute name="type"><xsl:text>sub</xsl:text></xsl:attribute>
+                        <xsl:value-of select="normalize-space()"/>
+                        </title>
+                    </xsl:for-each>
+                </titles>
+
+                <xsl:if test="//article-meta/abstract[not(@abstract-type='graphical')
+                                            and not(@abstract-type='toc')
+                                            and not(@abstract-type='precis')]
+                                        or //article-meta/trans-abstract">
+                    <abstracts>
+                        <xsl:if test="//article-meta/abstract[not(@abstract-type='graphical')
+                                              and not(@abstract-type='toc')
+                                              and not(@abstract-type='precis')]">
+                            <abstract>
+                                <!-- selecting the first non-toc non-grapical non-precis abstract -->
+                                <xsl:attribute name="language"><xsl:value-of select="$lang"/></xsl:attribute>
+                                <xsl:value-of select="//article-meta/abstract[not(@abstract-type='graphical')
+                                                                            and not(@abstract-type='toc')
+                                                                            and not(@abstract-type='precis')]"/>
+                            </abstract>
+                        </xsl:if>
+                        <xsl:for-each select="//article-meta/trans-abstract">
+                            <abstract>
+                                <xsl:call-template name="insert-lang-attrib"/>
+                                <xsl:value-of select="."/>
+                            </abstract>
+                        </xsl:for-each>
+                  </abstracts>
+                </xsl:if>
                 <persons>
                     <xsl:for-each select="//article-meta/contrib-group/contrib">
-                        <xsl:if test="string-length(normalize-space(name/surname/text()))>0">
+                        <xsl:if test="string-length(normalize-space(.//surname/text()))>0 and
+                                                (@contrib-type='guest-editor' or
+                                                @contrib-type='editor' or
+                                                @contrib-type='author')">
                             <person>
                                 <xsl:attribute name="role">
                                     <xsl:choose>
@@ -87,8 +134,31 @@
                                         </xsl:otherwise>
                                     </xsl:choose>
                                 </xsl:attribute>
-                                <xsl:attribute name="firstName"><xsl:value-of select="name/given-names"/></xsl:attribute>
-                                <xsl:attribute name="lastName"><xsl:value-of select="name/surname"/></xsl:attribute>
+                                <xsl:attribute name="firstName"><xsl:value-of select=".//given-names"/></xsl:attribute>
+                                <xsl:attribute name="lastName"><xsl:value-of select=".//surname"/></xsl:attribute>
+                                <xsl:if test=".//email">
+                                    <xsl:attribute name="email"><xsl:value-of select=".//email"/></xsl:attribute>
+                                </xsl:if>
+                                <xsl:if test="./contrib-id[@contrib-id-type='orcid']">
+                                    <identifiers>
+                                        <identifier type='orcid'>
+                                        <xsl:variable name='orcid' select="./contrib-id[@contrib-id-type='orcid']/text()"/>
+                                        <xsl:choose>
+                                            <xsl:when test="substring($orcid, string-length($orcid))='/'">
+                                                <xsl:variable name="orcid2" select="substring($orcid, 1, string-length($orcid)-1)"/>
+                                                <xsl:call-template name="insert-orcid">
+                                                <xsl:with-param name="orcid" select="$orcid2"/>
+                                                </xsl:call-template>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <xsl:call-template name="insert-orcid">
+                                                <xsl:with-param name="orcid" select="$orcid"/>
+                                                </xsl:call-template>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
+                                    </identifier>
+                                </identifiers>
+                            </xsl:if>
                             </person>
                         </xsl:if>
                     </xsl:for-each>
@@ -113,23 +183,17 @@
                 <dates>
                     <xsl:for-each select="//article-meta/pub-date">
                         <xsl:choose>
-                            <xsl:when test="contains(@pub-type,'epub') and year and month">
+                            <xsl:when test="(contains(@pub-type,'epub') and year) or
+                                        (contains(@pub-type,'ppub') and year) or
+                                        (contains(@pub-type, 'epub-ppub') and year) or
+                                        (contains(@date-type,'pub') and year) or
+                                        (not(@*) and year)">
                                 <xsl:call-template name="compose-date">
-                                    <!-- <xsl:with-param name="xpub" select="'epub'"/> -->
-                                </xsl:call-template>
-                            </xsl:when>
-                            <xsl:when test="contains(@pub-type,'ppub') and year and month">
-                                <xsl:call-template name="compose-date">
-                                    <!-- <xsl:with-param name="xpub" select="'ppub'"/> -->
-                                </xsl:call-template>
-                            </xsl:when>
-                            <xsl:when test="contains(@date-type,'pub') and year and month">
-                                <xsl:call-template name="compose-date">
-                                    <!-- <xsl:with-param name="xpub" select="'pub'"/> -->
                                 </xsl:call-template>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:if test="not(year)">
+                                    <!--to comply with opus requirement that a date has to be given-->
                                     <date>
                                         <xsl:attribute name="type"><xsl:text>completed</xsl:text></xsl:attribute>
                                         <xsl:attribute name="monthDay">
@@ -197,6 +261,46 @@
                 <xsl:value-of select="$xpath/year"/>
             </xsl:attribute>
         </date>
+    </xsl:template>
+
+    <xsl:template name="insert-orcid">
+        <xsl:param name="orcid"/>
+        <!-- This template accepts an url as input and selects the substring after the last "/".
+        orcids consist of four 4-digit blocks, separated by dashes. i.e. the resulting string should be precisely 19 characters long.
+        Lacking any regex capabilities in xslt 1.0, the template makes a last check for string-length before returning the orcid-id.
+        Recursive template, as substring-after() can only ever select the substring after the first instance of a character.
+        -->
+        <xsl:choose>
+        <xsl:when test="not(contains($orcid,'/'))">
+            <xsl:if test="string-length($orcid)=19">
+            <xsl:value-of select="$orcid"/>
+            </xsl:if>
+        </xsl:when>
+        <xsl:otherwise>
+            <xsl:call-template name="insert-orcid">
+            <xsl:with-param name="orcid" select="substring-after($orcid,'/')"/>
+            </xsl:call-template>
+        </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
+    <xsl:template name="insert-lang-attrib">
+    <!-- try to insert local language attribute, or fallback to global language variable -->
+        <xsl:choose>
+            <xsl:when test="@xml:lang">
+                <xsl:attribute name="language">
+                    <xsl:value-of select="php:functionString('Opus\I18n\Languages::getPart2b', @xml:lang)"/>
+                </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="../@xml:lang">
+                <xsl:attribute name="language">
+                    <xsl:value-of select="php:functionString('Opus\I18n\Languages::getPart2b', ../@xml:lang)"/>
+                </xsl:attribute>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:attribute name="language"><xsl:value-of select="$lang"/></xsl:attribute>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
 </xsl:stylesheet>
