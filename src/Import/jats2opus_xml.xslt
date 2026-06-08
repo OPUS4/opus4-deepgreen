@@ -242,7 +242,7 @@
                 <xsl:text>--</xsl:text>
                 <xsl:choose>
                     <!-- <xsl:when test="//article-meta/pub-date[contains(@pub-type,$xpub)]/month"> -->
-                    <xsl:when test="$xpath/month">
+                    <xsl:when test="number($xpath/month) = $xpath/month">
                         <xsl:value-of select="format-number($xpath/month,'00')"/>
                     </xsl:when>
                     <xsl:otherwise>
