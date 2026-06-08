@@ -101,18 +101,20 @@
                         <xsl:if test="//article-meta/abstract[not(@abstract-type='graphical')
                                               and not(@abstract-type='toc')
                                               and not(@abstract-type='precis')]">
-                            <abstract>
-                                <!-- selecting the first non-toc non-grapical non-precis abstract -->
-                                <xsl:attribute name="language"><xsl:value-of select="$lang"/></xsl:attribute>
-                                <xsl:value-of select="//article-meta/abstract[not(@abstract-type='graphical')
-                                                                            and not(@abstract-type='toc')
-                                                                            and not(@abstract-type='precis')]"/>
-                            </abstract>
+                            <xsl:for-each select="//article-meta/abstract[not(@abstract-type='graphical')
+                                    and not(@abstract-type='toc')
+                                    and not(@abstract-type='precis')][1]">
+                                <abstract>
+                                    <!-- selecting the first non-toc non-grapical non-precis abstract -->
+                                    <xsl:attribute name="language"><xsl:value-of select="$lang"/></xsl:attribute>
+                                    <xsl:call-template name="insert-abstract"/>
+                                </abstract>
+                            </xsl:for-each>
                         </xsl:if>
                         <xsl:for-each select="//article-meta/trans-abstract">
                             <abstract>
                                 <xsl:call-template name="insert-lang-attrib"/>
-                                <xsl:value-of select="."/>
+                                <xsl:call-template name="insert-abstract"/>
                             </abstract>
                         </xsl:for-each>
                   </abstracts>
@@ -302,5 +304,57 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+
+    <xsl:template name="insert-abstract">
+        <!-- Transform abstract content to normalize whitespacing between child elements.
+        Any tex-math content is exluded and title "Abstract" as well.
+        -->
+    <xsl:choose>
+      <xsl:when test="descendant::sub">
+      <!-- abstract contains chemical formulas, no whitespace normalization will be done -->
+        <xsl:for-each select="descendant-or-self::text()">
+          <xsl:if test="string-length(normalize-space())&gt;0">
+            <xsl:choose>
+              <xsl:when test="local-name(parent::*)='tex-math'
+                              or (local-name(parent::*)='title' and .='Abstract')">
+              <!--ignore tex-math elements and skip "Abstract" headers-->
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="."/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:for-each select="descendant-or-self::text()">
+          <xsl:if test="string-length(normalize-space())&gt;0">
+            <xsl:choose>
+              <xsl:when test="local-name(parent::*)='title' and not(.='Abstract')">
+              <!-- when text of title element is selected, add line breaks before and after-->
+                <xsl:text>
+                </xsl:text>
+                <xsl:value-of select="normalize-space()"/>
+                <xsl:text>
+                </xsl:text>
+              </xsl:when>
+              <xsl:when test="local-name(parent::*)='tex-math'
+                              or (local-name(parent::*)='title' and .='Abstract')">
+              <!--ignore tex-math elements and skip "Abstract" headers-->
+              </xsl:when>
+              <xsl:when test="contains(name(parent::*),'mml:')">
+                <xsl:value-of select="."/>
+              </xsl:when>
+              <xsl:otherwise> <!--otherwise select text and add a whitespace afterward-->
+                <xsl:value-of select="normalize-space()"/>
+                <xsl:text> </xsl:text>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
 
 </xsl:stylesheet>
