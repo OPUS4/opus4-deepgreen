@@ -31,8 +31,12 @@
 
 namespace Opus\DeepGreen\Import;
 
+use DateTime;
 use DOMDocument;
 use XSLTProcessor;
+
+use function is_numeric;
+use function sprintf;
 
 use const DIRECTORY_SEPARATOR;
 
@@ -60,6 +64,7 @@ class JatsToOpusConverter
         $proc->importStylesheet($this->getStylesheet());
         $proc->registerPHPFunctions([
             'Opus\I18n\Languages::getPart2b', // TODO find way to keep implementing class out of XSLT
+            'Opus\DeepGreen\Import\JatsToOpusConverter::formatMonth',
         ]);
         return $proc;
     }
@@ -72,5 +77,15 @@ class JatsToOpusConverter
         $xslt->load($stylesheet);
 
         return $xslt;
+    }
+
+    public static function formatMonth(string $month): string
+    {
+        if (! is_numeric($month)) {
+            $dateTime = new DateTime($month);
+            return $dateTime->format('m');
+        } else {
+            return sprintf('%02d', $month);
+        }
     }
 }

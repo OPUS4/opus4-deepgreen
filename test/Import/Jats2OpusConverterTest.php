@@ -92,4 +92,22 @@ class Jats2OpusConverterTest extends TestCase
     {
         $this->assertEquals('eng', Languages::getPart2b('EN'));
     }
+
+    public static function monthProvider(): array
+    {
+        return [
+            ['Jan', '01'],
+            ['December', '12'],
+            ['1', '01'],
+            ['10', '10'],
+        ];
+    }
+
+    /**
+     * @dataProvider monthProvider
+     */
+    public function testFormatMonth(string $month, string $expected)
+    {
+        $this->assertEquals($expected, JatsToOpusConverter::formatMonth($month));
+    }
 }
