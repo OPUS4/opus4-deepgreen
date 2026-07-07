@@ -31,13 +31,64 @@
 
 namespace Opus\DeepGreen\Console;
 
+use DOMDocument;
+use Opus\DeepGreen\Import\JatsToOpusConverter;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+use function file_exists;
+use function file_get_contents;
 
 /**
  * Converts DeepGreen JATS to OPUS 4 XML.
- *
- * TODO implement command
  */
 class ConvertCommand extends Command
 {
+    const ARGUMENT_JATS = 'jats';
+
+    protected function configure()
+    {
+        parent::configure();
+
+        $help = <<<HELP
+The <info>deepgreen:convert</info> command allows you to convert JATS-XML files
+to OPUS-XML. This can be used for testing during development or debugging.
+HELP;
+
+        $this->setName('deepgreen:convert')
+            ->setDescription('Convert JATS-XML files to OPUS-XML')
+            ->setHelp($help)
+            ->addArgument(
+                self::ARGUMENT_JATS,
+                InputArgument::REQUIRED,
+                'JATS-XML file'
+            );
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $jatsFile = $input->getArgument(self::ARGUMENT_JATS);
+
+        if (! file_exists($jatsFile)) {
+            $output->writeln('<error>JATS-XML file not found</error>');
+            return Command::FAILURE;
+        }
+
+        $jatsXml = file_get_contents($jatsFile);
+
+        $jats = new DOMDocument();
+        $jats->loadXml($jatsXml);
+
+        $converter = new JatsToOpusConverter();
+        $opus      = $converter->convert($jats);
+
+        $opus->formatOutput       = true;
+        $opus->preserveWhiteSpace = true;
+
+        $output->writeln($opus->saveXML());
+
+        return Command::SUCCESS;
+    }
 }
