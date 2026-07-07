@@ -33,6 +33,7 @@ namespace Opus\DeepGreen\Import;
 
 use DateTime;
 use DOMDocument;
+use Opus\Xml\PhpFunctions;
 use XSLTProcessor;
 
 use function is_numeric;
@@ -62,10 +63,12 @@ class JatsToOpusConverter
     {
         $proc = new XSLTProcessor();
         $proc->importStylesheet($this->getStylesheet());
-        $proc->registerPHPFunctions([
-            'Opus\I18n\Languages::getPart2b', // TODO find way to keep implementing class out of XSLT
+
+        PhpFunctions::registerPhpFunctions($proc, [
+            'Opus\I18n\Languages::getPart2b',
             'Opus\DeepGreen\Import\JatsToOpusConverter::formatMonth',
         ]);
+
         return $proc;
     }
 

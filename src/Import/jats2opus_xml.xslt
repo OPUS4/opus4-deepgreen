@@ -5,7 +5,7 @@
 
     <xsl:output method="xml" omit-xml-declaration="yes" indent="yes" encoding="utf-8"/>
 
-    <xsl:variable name="lang" select="php:functionString('Opus\I18n\Languages::getPart2b', /article/@xml:lang)"/>
+    <xsl:variable name="lang" select="php:functionString('Opus\Xml\PhpFunctions::getPart2b', /article/@xml:lang)"/>
 
     <xsl:template match="/">
         <import>
@@ -242,8 +242,8 @@
                 <xsl:text>--</xsl:text>
                 <xsl:choose>
                     <!-- <xsl:when test="//article-meta/pub-date[contains(@pub-type,$xpub)]/month"> -->
-                    <xsl:when test="number($xpath/month) = $xpath/month">
-                        <xsl:value-of select="format-number($xpath/month,'00')"/>
+                    <xsl:when test="$xpath/month">
+                        <xsl:value-of select="php:functionString('Opus\Xml\PhpFunctions::formatMonth', $xpath/month)"/>
                     </xsl:when>
                     <xsl:otherwise>
                         <xsl:text>12</xsl:text>

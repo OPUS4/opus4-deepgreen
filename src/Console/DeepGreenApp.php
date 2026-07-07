@@ -52,6 +52,7 @@ class DeepGreenApp extends Application
             new CheckCommand(),
             new ConfigCommand(),
             new DownloadCommand(),
+            new ConvertCommand(),
         ];
 
         foreach ($commands as $command) {
