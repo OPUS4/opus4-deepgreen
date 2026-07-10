@@ -144,23 +144,10 @@
                                 <xsl:if test="./contrib-id[@contrib-id-type='orcid']">
                                     <identifiers>
                                         <identifier type='orcid'>
-                                        <xsl:variable name='orcid' select="./contrib-id[@contrib-id-type='orcid']/text()"/>
-                                        <xsl:choose>
-                                            <xsl:when test="substring($orcid, string-length($orcid))='/'">
-                                                <xsl:variable name="orcid2" select="substring($orcid, 1, string-length($orcid)-1)"/>
-                                                <xsl:call-template name="insert-orcid">
-                                                <xsl:with-param name="orcid" select="$orcid2"/>
-                                                </xsl:call-template>
-                                            </xsl:when>
-                                            <xsl:otherwise>
-                                                <xsl:call-template name="insert-orcid">
-                                                <xsl:with-param name="orcid" select="$orcid"/>
-                                                </xsl:call-template>
-                                            </xsl:otherwise>
-                                        </xsl:choose>
-                                    </identifier>
-                                </identifiers>
-                            </xsl:if>
+                                            <xsl:value-of select="./contrib-id[@contrib-id-type='orcid']/text()"/>
+                                        </identifier>
+                                    </identifiers>
+                                </xsl:if>
                             </person>
                         </xsl:if>
                     </xsl:for-each>
@@ -263,27 +250,6 @@
                 <xsl:value-of select="$xpath/year"/>
             </xsl:attribute>
         </date>
-    </xsl:template>
-
-    <xsl:template name="insert-orcid">
-        <xsl:param name="orcid"/>
-        <!-- This template accepts an url as input and selects the substring after the last "/".
-        orcids consist of four 4-digit blocks, separated by dashes. i.e. the resulting string should be precisely 19 characters long.
-        Lacking any regex capabilities in xslt 1.0, the template makes a last check for string-length before returning the orcid-id.
-        Recursive template, as substring-after() can only ever select the substring after the first instance of a character.
-        -->
-        <xsl:choose>
-        <xsl:when test="not(contains($orcid,'/'))">
-            <xsl:if test="string-length($orcid)=19">
-            <xsl:value-of select="$orcid"/>
-            </xsl:if>
-        </xsl:when>
-        <xsl:otherwise>
-            <xsl:call-template name="insert-orcid">
-            <xsl:with-param name="orcid" select="substring-after($orcid,'/')"/>
-            </xsl:call-template>
-        </xsl:otherwise>
-        </xsl:choose>
     </xsl:template>
 
     <xsl:template name="insert-lang-attrib">
