@@ -257,12 +257,12 @@
         <xsl:choose>
             <xsl:when test="@xml:lang">
                 <xsl:attribute name="language">
-                    <xsl:value-of select="php:functionString('Opus\I18n\Languages::getPart2b', @xml:lang)"/>
+                    <xsl:value-of select="php:functionString('Opus\Xml\PhpFunctions::getPart2b', @xml:lang)"/>
                 </xsl:attribute>
             </xsl:when>
             <xsl:when test="../@xml:lang">
                 <xsl:attribute name="language">
-                    <xsl:value-of select="php:functionString('Opus\I18n\Languages::getPart2b', ../@xml:lang)"/>
+                    <xsl:value-of select="php:functionString('Opus\Xml\PhpFunctions::getPart2b', ../@xml:lang)"/>
                 </xsl:attribute>
             </xsl:when>
             <xsl:otherwise>
