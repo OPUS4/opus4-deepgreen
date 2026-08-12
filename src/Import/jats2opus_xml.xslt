@@ -276,13 +276,13 @@
         Any tex-math content is exluded and title "Abstract" as well.
         -->
     <xsl:choose>
-      <xsl:when test="descendant::sub">
+      <xsl:when test="descendant::sub or descendant::sup">
       <!-- abstract contains chemical formulas, no whitespace normalization will be done -->
         <xsl:for-each select="descendant-or-self::text()">
           <xsl:if test="string-length(normalize-space())&gt;0">
             <xsl:choose>
               <xsl:when test="local-name(parent::*)='tex-math'
-                              or (local-name(parent::*)='title' and .='Abstract')">
+                              or (local-name(parent::*)='title' and (.='Abstract' or .='ABSTRACT'))">
               <!--ignore tex-math elements and skip "Abstract" headers-->
               </xsl:when>
               <xsl:otherwise>
@@ -296,7 +296,7 @@
         <xsl:for-each select="descendant-or-self::text()">
           <xsl:if test="string-length(normalize-space())&gt;0">
             <xsl:choose>
-              <xsl:when test="local-name(parent::*)='title' and not(.='Abstract')">
+              <xsl:when test="local-name(parent::*)='title' and not(.='Abstract' or .='ABSTRACT')">
               <!-- when text of title element is selected, add line breaks before and after-->
                 <xsl:text>
                 </xsl:text>
@@ -305,7 +305,7 @@
                 </xsl:text>
               </xsl:when>
               <xsl:when test="local-name(parent::*)='tex-math'
-                              or (local-name(parent::*)='title' and .='Abstract')">
+                              or (local-name(parent::*)='title' and (.='Abstract' or .='ABSTRACT'))">
               <!--ignore tex-math elements and skip "Abstract" headers-->
               </xsl:when>
               <xsl:when test="contains(name(parent::*),'mml:')">
