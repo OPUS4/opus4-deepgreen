@@ -34,9 +34,9 @@ namespace Opus\DeepGreen\Import;
 use DOMDocument;
 use Opus\Common\ConfigTrait;
 use Opus\DeepGreen\DeepGreenException;
+use Opus\Import\AbstractImporter;
 use Opus\Import\AdditionalEnrichments;
 use Opus\Import\SwordImporter;
-use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use function basename;
@@ -53,12 +53,9 @@ use const PHP_EOL;
  * TODO refactor class and use parent class to avoid duplicating basic import workflow for OPUS 4
  * TODO should this extend the SwordImporter? Probably not because it creates undesired dependencies
  */
-class FilesAndJatsImporter
+class FilesAndJatsImporter extends AbstractImporter
 {
     use ConfigTrait;
-
-    /** @var OutputInterface */
-    private $output;
 
     /**
      * @throws DeepGreenException
@@ -132,21 +129,6 @@ class FilesAndJatsImporter
         // TODO Post processing (import rules)
 
         return $docId;
-    }
-
-    public function getOutput(): OutputInterface
-    {
-        if ($this->output === null) {
-            $this->output = new NullOutput();
-        }
-
-        return $this->output;
-    }
-
-    public function setOutput(OutputInterface $output): self
-    {
-        $this->output = $output;
-        return $this;
     }
 
     public function getImporter(string|DOMDocument $opusXml): SwordImporter
