@@ -47,7 +47,7 @@ class DiffCommand extends Command
 
     const ARGUMENT_INPUT = 'deepgreen';
 
-    public function configure()
+    protected function configure(): void
     {
         parent::configure();
 

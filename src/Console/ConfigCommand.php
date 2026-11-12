@@ -55,7 +55,7 @@ class ConfigCommand extends Command
     /** @var QuestionHelper */
     private $questionHelper;
 
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 
