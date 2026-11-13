@@ -59,7 +59,7 @@ class ImportCommand extends Command
 
     public const ARGUMENT_INPUT = 'input';
 
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 

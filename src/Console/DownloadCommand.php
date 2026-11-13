@@ -55,7 +55,7 @@ class DownloadCommand extends Command
 
     const ARGUMENT_NOTIFICATION_ID = 'nid';
 
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 

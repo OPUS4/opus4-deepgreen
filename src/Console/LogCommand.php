@@ -42,7 +42,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class LogCommand extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 
